@@ -1,0 +1,10 @@
+digraph "packages_backend" {
+rankdir=BT
+charset="utf-8"
+"Backend_test" [color="black", label=<Backend_test>, shape="box", style="solid"];
+"Backend_test.config" [color="black", label=<Backend_test.config>, shape="box", style="solid"];
+"Backend_test.controllers" [color="black", label=<Backend_test.controllers>, shape="box", style="solid"];
+"Backend_test.middleware" [color="black", label=<Backend_test.middleware>, shape="box", style="solid"];
+"Backend_test.models" [color="black", label=<Backend_test.models>, shape="box", style="solid"];
+"Backend_test.routes" [color="black", label=<Backend_test.routes>, shape="box", style="solid"];
+}
