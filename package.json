@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@xyflow/react": "^12.10.1",
     "firebase": "^12.7.0",
     "node-fetch": "^3.3.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "reactflow": "^11.11.4",
     "recharts": "^3.6.0",
     "undici": "^7.22.0"
   },

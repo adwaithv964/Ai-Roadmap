@@ -1,16 +1,57 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 const User = require('../models/User');
 const Feedback = require('../models/Feedback');
 
-// Middleware to check if user is admin (Mock for now, normally would check JWT)
+// Middleware to check if user is admin
 const isAdmin = async (req, res, next) => {
-    // For prototype, we might skip actual auth or assume a header 'x-admin-secret'
-    // In a real app: check req.user.role === 'admin'
-    // const user = await User.findOne({ firebaseUid: req.headers.uid });
-    // if (user && user.role === 'admin') next();
-    next();
+    try {
+        const token = req.headers.authorization?.split('Bearer ')[1];
+        if (!token) return res.status(401).json({ message: 'No token provided' });
+
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        const user = await User.findOne({ firebaseUid: decodedToken.uid });
+
+        if (!user || user.isBanned || !['super_admin', 'domain_expert', 'support'].includes(user.role)) {
+            return res.status(403).json({ message: 'Access denied: Requires admin privileges' });
+        }
+
+        req.adminUser = user; // Attach user to request
+        next();
+    } catch (error) {
+        console.error('Admin Auth Error:', error);
+        res.status(401).json({ message: 'Invalid or expired token' });
+    }
 };
+
+// --- Admin Login Verification ---
+router.post('/login', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split('Bearer ')[1];
+        if (!token) return res.status(401).json({ message: 'No token provided' });
+
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        const user = await User.findOne({ firebaseUid: decodedToken.uid });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found in database' });
+        }
+
+        if (user.isBanned) {
+            return res.status(403).json({ message: 'Account banned' });
+        }
+
+        if (!['super_admin', 'domain_expert', 'support'].includes(user.role)) {
+            return res.status(403).json({ message: 'Access denied: Requires admin privileges' });
+        }
+
+        res.json({ message: 'Login successful', role: user.role, email: user.email });
+    } catch (error) {
+        console.error('Admin Login Error:', error);
+        res.status(401).json({ message: 'Invalid or expired token' });
+    }
+});
 
 // --- Dashboard Stats ---
 router.get('/stats', isAdmin, async (req, res) => {
@@ -208,6 +249,76 @@ router.delete('/roadmaps/:id', isAdmin, async (req, res) => {
     try {
         await Roadmap.findByIdAndDelete(req.params.id);
         res.json({ message: 'Roadmap deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// --- Resource Hub ---
+const SuggestedResource = require('../models/SuggestedResource');
+
+router.get('/resources/pending', isAdmin, async (req, res) => {
+    try {
+        const queue = await SuggestedResource.find({ status: 'pending' }).sort({ createdAt: -1 });
+        res.json(queue);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.put('/resources/:id/approve', isAdmin, async (req, res) => {
+    try {
+        const resource = await SuggestedResource.findByIdAndUpdate(
+            req.params.id,
+            { status: 'approved' },
+            { new: true }
+        );
+        res.json(resource);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.put('/resources/:id/reject', isAdmin, async (req, res) => {
+    try {
+        const resource = await SuggestedResource.findByIdAndUpdate(
+            req.params.id,
+            { status: 'rejected' },
+            { new: true }
+        );
+        res.json(resource);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// --- Analytics & Intelligence ---
+router.get('/analytics/dropoffs', isAdmin, async (req, res) => {
+    try {
+        // Mock data for Drop-off Heatmap (For a real system, you'd aggregate User progress)
+        const dropoffs = [
+            { module: 'HTML Basics', count: 5 },
+            { module: 'CSS Grid', count: 12 },
+            { module: 'JS Promises', count: 45 },
+            { module: 'React Hooks', count: 28 },
+            { module: 'Redux', count: 85 },
+            { module: 'Docker', count: 62 }
+        ];
+        res.json(dropoffs);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.get('/analytics/failures', isAdmin, async (req, res) => {
+    try {
+        // Mock data for Failure Detection
+        const failures = [
+            { id: 1, user: 'john@example.com', topic: 'Recursion', score: 35, risk: 'High' },
+            { id: 2, user: 'jane@test.com', topic: 'Pointers in C', score: 40, risk: 'Medium' },
+            { id: 3, user: 'mike@demo.com', topic: 'MongoDB Aggregation', score: 25, risk: 'High' }
+        ];
+        res.json(failures);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

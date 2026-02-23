@@ -14,6 +14,10 @@ connectDB();
 // Initialize Firebase Admin SDK
 initializeFirebase();
 
+// Ensure Default Admin Exists
+const createDefaultAdmin = require('./scripts/createDefaultAdmin');
+createDefaultAdmin();
+
 // Core Middleware
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Enable JSON body parsing
