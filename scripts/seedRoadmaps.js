@@ -1,0 +1,78 @@
+require('dotenv').config({ path: '../Backend_test/.env' });
+const mongoose = require('mongoose');
+const Roadmap = require('../Backend_test/models/Roadmap');
+
+const roadmaps = [
+    { id: 'frontend', categoryId: 'dev', title: 'Frontend Development', description: 'Build beautiful and interactive user interfaces for the web.', icon: '💻' },
+    { id: 'backend', categoryId: 'dev', title: 'Backend Development', description: 'Power applications with robust server-side logic and databases.', icon: '⚙️' },
+    { id: 'fullstack', categoryId: 'dev', title: 'Full-Stack Development', description: 'Master both frontend and backend to build complete applications.', icon: '🌐' },
+    { id: 'ios', categoryId: 'dev', title: 'iOS App Development', description: 'Create applications for Apple\'s iPhone and iPad.', icon: '📱' },
+    { id: 'android', categoryId: 'dev', title: 'Android App Development', description: 'Build applications for the world\'s most popular mobile OS.', icon: '🤖' },
+    { id: 'game', categoryId: 'dev', title: 'Game Development', description: 'Create interactive and immersive gaming experiences.', icon: '🎮' },
+    { id: 'desktop', categoryId: 'dev', title: 'Desktop App Development', description: 'Build native applications for Windows, macOS, and Linux.', icon: '🖥️' },
+    { id: 'embedded', categoryId: 'dev', title: 'Embedded Systems', description: 'Program devices that are not traditional computers.', icon: '🔌' },
+    { id: 'robotics', categoryId: 'dev', title: 'Robotics Engineering', description: 'Design, build, and program robots.', icon: '🦾' },
+    { id: 'devops', categoryId: 'it', title: 'DevOps Engineering', description: 'Bridge the gap between software development and IT operations.', icon: '🔄' },
+    { id: 'datascience', categoryId: 'data', title: 'Data Science', description: 'Extract insights and knowledge from data using scientific methods.', icon: '📊' },
+    { id: 'dataanalytics', categoryId: 'data', title: 'Data Analytics', description: 'Analyze data to help organizations make better decisions.', icon: '📈' },
+    { id: 'machinelearning', categoryId: 'data', title: 'Machine Learning', description: 'Build systems that learn and improve from experience.', icon: '🧠' },
+    { id: 'aispecialist', categoryId: 'data', title: 'AI Specialist', description: 'Develop intelligent systems that can perceive, reason, and act.', icon: '✨' },
+    { id: 'databaseadmin', categoryId: 'data', title: 'Database Administration', description: 'Manage and maintain databases to ensure they are secure.', icon: '🗄️' },
+    { id: 'bigdata', categoryId: 'data', title: 'Big Data Engineering', description: 'Architect systems to handle massive volumes of data.', icon: '🌊' },
+    { id: 'cloudengineering', categoryId: 'it', title: 'Cloud Engineering', description: 'Design and manage applications and infrastructure in the cloud.', icon: '☁️' },
+    { id: 'networkadmin', categoryId: 'it', title: 'Network Administration', description: 'Manage network infrastructure for organizations.', icon: '📡' },
+    { id: 'systemadmin', categoryId: 'it', title: 'Systems Administration', description: 'Maintain and operate computer systems and servers.', icon: '🛠️' },
+    { id: 'cloudarchitect', categoryId: 'it', title: 'Cloud Architecture', description: 'Design the overall structure of cloud environments.', icon: '🏗️' },
+    { id: 'itsupport', categoryId: 'it', title: 'IT Support Specialist', description: 'Provide technical assistance and troubleshooting.', icon: '🆘' },
+    { id: 'uidesign', categoryId: 'design', title: 'UI/UX Design', description: 'Design intuitive and engaging user experiences for digital products.', icon: '🎨' },
+    { id: 'interactiondesign', categoryId: 'design', title: 'Interaction Design', description: 'Focus on how users interact with products.', icon: '🖱️' },
+    { id: 'graphicdesign', categoryId: 'design', title: 'Graphic Design', description: 'Create visual concepts to communicate ideas.', icon: '✒️' },
+    { id: '3dmodeling', categoryId: 'design', title: '3D Modeling', description: 'Create three-dimensional models of objects and characters.', icon: '🧊' },
+    { id: 'videoediting', categoryId: 'design', title: 'Video Editing', description: 'Assemble recorded raw material into a finished product.', icon: '🎬' },
+    { id: 'cybersecurity', categoryId: 'security', title: 'Cybersecurity Analyst', description: 'Protect systems, networks, and programs from digital attacks.', icon: '🛡️' },
+    { id: 'ethicalhacker', categoryId: 'security', title: 'Ethical Hacker', description: 'Find and fix security vulnerabilities before malicious actors do.', icon: '🎩' },
+    { id: 'digitalforensics', categoryId: 'security', title: 'Digital Forensics', description: 'Investigate cybercrimes and recover digital evidence.', icon: '🔍' },
+    { id: 'securityengineer', categoryId: 'security', title: 'Security Engineer', description: 'Design and build systems to keep data safe.', icon: '⚙️🛡️' },
+    { id: 'blockchain', categoryId: 'emerging', title: 'Blockchain Development', description: 'Build decentralized applications on blockchain technology.', icon: '🔗' },
+    { id: 'quantumcomputing', categoryId: 'emerging', title: 'Quantum Computing', description: 'Explore the next frontier of computation.', icon: '⚛️' },
+    { id: 'iot', categoryId: 'emerging', title: 'IoT Development', description: 'Build and connect smart devices to the internet.', icon: '💡' },
+    { id: 'arvr', categoryId: 'emerging', title: 'AR/VR Development', description: 'Create immersive augmented and virtual reality experiences.', icon: '🕶️' },
+    { id: 'projectmanager', categoryId: 'business', title: 'Project Management', description: 'Lead teams to deliver projects on time and on budget.', icon: '📋' },
+    { id: 'businessanalyst', categoryId: 'business', title: 'Business Analyst', description: 'Bridge the gap between business needs and technology solutions.', icon: '👔' },
+    { id: 'financialanalyst', categoryId: 'business', title: 'Financial Analyst', description: 'Analyze financial data to guide investment decisions.', icon: '💰' },
+    { id: 'accountant', categoryId: 'business', title: 'Accounting', description: 'Track, analyze, and report on financial transactions.', icon: '🧾' },
+    { id: 'productmanager', categoryId: 'business', title: 'Product Management', description: 'Guide a product\'s success from conception to launch.', icon: '🚀' },
+    { id: 'hrspecialist', categoryId: 'business', title: 'Human Resources', description: 'Manage the employee lifecycle within an organization.', icon: '👥' },
+    { id: 'digitalmarketing', categoryId: 'marketing', title: 'Digital Marketing', description: 'Promote brands using digital channels to reach consumers.', icon: '📈' },
+    { id: 'seospecialist', categoryId: 'marketing', title: 'SEO Specialist', description: 'Optimize websites to rank higher in search engine results.', icon: '🔎' },
+    { id: 'socialmediamanager', categoryId: 'marketing', title: 'Social Media Manager', description: 'Manage a brand\'s presence on social media platforms.', icon: '👍' },
+    { id: 'contentcreator', categoryId: 'marketing', title: 'Content Creator', description: 'Produce entertaining or educational material for an audience.', icon: '✍️' },
+    { id: 'emailmarketing', categoryId: 'marketing', title: 'Email Marketing', description: 'Engage with customers and prospects via email campaigns.', icon: '📧' },
+    { id: 'ppcspecialist', categoryId: 'marketing', title: 'PPC Specialist', description: 'Manage paid advertising campaigns on platforms like Google Ads.', icon: '💸' }
+].map(item => ({
+    title: item.title,
+    description: item.description,
+    icon: item.icon,
+    slug: item.id,
+    category: item.categoryId
+}));
+
+async function seed() {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('Connected to DB');
+
+        await Roadmap.deleteMany({}); // Clear existing
+        console.log('Cleared existing roadmaps');
+
+        await Roadmap.insertMany(roadmaps);
+        console.log(`Seeded ${roadmaps.length} roadmaps`);
+
+        await mongoose.disconnect();
+    } catch (error) {
+        console.error('Seed error:', error);
+        process.exit(1);
+    }
+}
+
+seed();

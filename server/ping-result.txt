@@ -1,0 +1,16 @@
+
+Pinging 8.8.8.8 with 32 bytes of data:
+Reply from 8.8.8.8: bytes=32 time=29ms TTL=118
+
+Ping statistics for 8.8.8.8:
+    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 29ms, Maximum = 29ms, Average = 29ms
+
+Pinging google.com [142.251.222.174] with 32 bytes of data:
+Reply from 142.251.222.174: bytes=32 time=28ms TTL=118
+
+Ping statistics for 142.251.222.174:
+    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 28ms, Maximum = 28ms, Average = 28ms
