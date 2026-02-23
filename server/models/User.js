@@ -21,6 +21,13 @@ const notificationSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 }, { _id: false });
 
+// Subdocument schema for XP history entries
+const xpHistorySchema = new mongoose.Schema({
+  date: { type: String, required: true },   // 'YYYY-MM-DD'
+  xpEarned: { type: Number, required: true },
+  reason: { type: String, default: '' },
+}, { _id: false });
+
 
 const userSchema = new mongoose.Schema({
   firebaseUid: {
@@ -53,9 +60,58 @@ const userSchema = new mongoose.Schema({
     },
     default: {}
   },
+  // ── Adaptive Roadmap Engine Fields ─────────────────────────
+  timeSpent: {
+    type: Map,
+    of: {
+      type: Map,
+      of: Number, // seconds spent per module
+    },
+    default: {}
+  },
+  quizScores: {
+    type: Map,
+    of: {
+      type: Map,
+      of: Number, // percentage score per module
+    },
+    default: {}
+  },
+  roadmapAdaptations: {
+    type: Map,
+    of: {
+      addedModules: { type: Array, default: [] },
+      skippedSteps: { type: Array, default: [] }
+    },
+    default: {}
+  },
+  // ───────────────────────────────────────────────────────────
   notifications: {
     type: [notificationSchema],
     default: []
+  },
+  // ── Gamification fields ───────────────────────────────
+  xp: {
+    type: Number,
+    default: 0,
+  },
+  level: {
+    type: Number,
+    default: 1,
+  },
+  streak: {
+    type: Number,
+    default: 0,
+  },
+  // Date of last XP-earning activity (YYYY-MM-DD)
+  lastActivityDate: {
+    type: String,
+    default: null,
+  },
+  // Capped at last 30 entries
+  xpHistory: {
+    type: [xpHistorySchema],
+    default: [],
   },
 }, { timestamps: true });
 

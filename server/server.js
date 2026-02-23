@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
@@ -26,6 +27,10 @@ app.use('/api/feedback', require('./routes/feedbackRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/roadmaps', require('./routes/roadmapRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/community', require('./routes/community'));
+app.use('/api/adaptive', require('./routes/adaptiveRoutes'));
+app.use('/api/resources', require('./routes/resourceRoutes'));
+app.use('/api/gamification', require('./routes/gamification'));
 
 // --- Server ---
 const PORT = process.env.PORT || 5000;

@@ -1,0 +1,24 @@
+Testing chat response format...
+GEMINI TEST FAILED: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent: [400 Bad Request] API Key not found. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API Key not found. Please pass a valid API key."}]
+    at handleResponseNotOk (C:\Projects\AiRoadmap\server\node_modules\@google\generative-ai\dist\index.js:434:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async makeRequest (C:\Projects\AiRoadmap\server\node_modules\@google\generative-ai\dist\index.js:403:9)
+    at async generateContent (C:\Projects\AiRoadmap\server\node_modules\@google\generative-ai\dist\index.js:867:22)
+    at async ChatSession.sendMessage (C:\Projects\AiRoadmap\server\node_modules\@google\generative-ai\dist\index.js:1210:9)
+    at async testGemini (C:\Projects\AiRoadmap\server\test_gemini.js:15:24) {
+  status: 400,
+  statusText: 'Bad Request',
+  errorDetails: [
+    {
+      '@type': 'type.googleapis.com/google.rpc.ErrorInfo',
+      reason: 'API_KEY_INVALID',
+      domain: 'googleapis.com',
+      metadata: [Object]
+    },
+    {
+      '@type': 'type.googleapis.com/google.rpc.LocalizedMessage',
+      locale: 'en-US',
+      message: 'API Key not found. Please pass a valid API key.'
+    }
+  ]
+}

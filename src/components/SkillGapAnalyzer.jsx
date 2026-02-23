@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { GEMINI_API_KEY, domains } from '../data/constants';
+import { domains } from '../data/constants';
+import { auth } from '../config/firebase';
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -104,69 +105,21 @@ const SkillGapAnalyzer = ({ onClose, onSelectDomain }) => {
         setStatus('loading');
         setStep(3);
 
-        const apiKey = GEMINI_API_KEY;
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-        const systemPrompt = `You are an expert career advisor and tech recruiter. 
-When given a target job role and the user's current skills, you produce a detailed skill gap analysis.
-IMPORTANT: Respond ONLY with a valid JSON object — no markdown, no extra text.
-The JSON must have exactly these keys:
-- "matchedSkills": array of objects with { "skill": string, "relevance": string }
-- "missingSkills": array of objects with { "skill": string, "priority": number (1=critical, 2=important, 3=nice-to-have), "reason": string, "estimatedHours": number, "resources": string }
-- "readinessScore": number (0-100)
-- "summary": string (2-3 sentences)
-Order "missingSkills" by priority (1 first).`;
-
-        const userQuery = `Target job role: ${selectedDomain.title}
-Current skills I have: ${currentSkills.join(', ')}
-
-Analyze my skill gap for this role. Be realistic and specific. Include all essential technical skills I am missing.`;
-
-        const payload = {
-            contents: [{ parts: [{ text: userQuery }] }],
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            generationConfig: { temperature: 0.4 }
-        };
-
-        let response;
-        let success = false;
-        for (let i = 0; i < 3; i++) {
-            try {
-                response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (response.ok) { success = true; break; }
-            } catch (err) {
-                console.error(`Skill Gap API attempt ${i + 1} failed:`, err);
-            }
-            await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
-        }
-
-        if (!success || !response) {
-            setErrorMsg('Failed to connect to the AI service. Please check your internet connection and try again.');
-            setStatus('error');
-            return;
-        }
-
         try {
-            const result = await response.json();
-            let jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
-            // Strip markdown code fences if present
-            jsonText = jsonText.replace(/```json\s*/gi, '').replace(/```\s*/gi, '').trim();
-            const startIdx = jsonText.indexOf('{');
-            const endIdx = jsonText.lastIndexOf('}');
-            if (startIdx !== -1 && endIdx !== -1) {
-                jsonText = jsonText.substring(startIdx, endIdx + 1);
-            }
-            const parsed = JSON.parse(jsonText);
+            const token = await auth.currentUser?.getIdToken();
+            const res = await fetch('/api/gemini/skill-gap', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ domainTitle: selectedDomain.title, currentSkills }),
+            });
+            if (!res.ok) throw new Error(`Server error ${res.status}`);
+            const parsed = await res.json();
             setAnalysis(parsed);
             setStatus('success');
             sessionStorage.setItem(cacheKey, JSON.stringify(parsed));
         } catch (err) {
-            console.error('Failed to parse Skill Gap AI response:', err);
-            setErrorMsg('The AI returned an unexpected response. Please try again.');
+            console.error('Skill Gap analysis failed:', err);
+            setErrorMsg('Failed to connect to the AI service. Please try again.');
             setStatus('error');
         }
     };

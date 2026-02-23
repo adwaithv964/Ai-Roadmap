@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { GEMINI_API_KEY } from '../data/constants';
+import { auth } from '../config/firebase';
 
 // ─────────────────────────────────────────────────────────
 // Constants & helpers
@@ -146,37 +146,24 @@ function groupByWeek(days) {
 // ─────────────────────────────────────────────────────────
 // Gemini enhancement: per-day mini tasks
 // ─────────────────────────────────────────────────────────
-async function fetchAIMiniTasks(plan, roadmapTitle) {
-    const apiKey = GEMINI_API_KEY;
-    if (!apiKey || apiKey.startsWith('your_') || plan.length === 0) return null;
+async function fetchAIMiniTasks(plan, roadmapTitle, token) {
+    if (!plan.length) return null;
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    // Only enhance mini-project/practice days
     const enhanceDays = plan
         .filter(d => d.type === 'project' || d.type === 'practice')
-        .slice(0, 12); // cap to 12 to keep prompt small
+        .slice(0, 12)
+        .map(d => ({ date: d.date, steps: d.steps }));
 
-    const prompt = `You are a ${roadmapTitle} coding mentor creating hands-on daily exercises.
-For each day below, write a SHORT, specific, actionable mini-task (1-2 sentences max) the learner can BUILD or DO that day — not just "read about" it.
-Respond ONLY with a JSON array of objects: [{"date":"YYYY-MM-DD","miniTask":"..."}]
-No markdown, no explanation.
-
-Days:
-${enhanceDays.map(d => `${d.date}: Topics today — ${d.steps.map(s => s.title).join(', ')}`).join('\n')}`;
+    if (!enhanceDays.length) return null;
 
     try {
-        const res = await fetch(apiUrl, {
+        const res = await fetch('/api/gemini/mini-tasks', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.5 } }),
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ roadmapTitle, days: enhanceDays }),
         });
         if (!res.ok) return null;
-        const data = await res.json();
-        let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        text = text.replace(/```json\s*/gi, '').replace(/```\s*/gi, '').trim();
-        const arr = JSON.parse(text);
-        return arr; // [{ date, miniTask }]
+        return await res.json();
     } catch { return null; }
 }
 
@@ -362,7 +349,8 @@ const WeeklyPlanner = ({ roadmapData, progress, onClose, onToggleStep, onAskTuto
         // AI enhance mini tasks
         setAiEnhancing(true);
         try {
-            const aiTasks = await fetchAIMiniTasks(newPlan, roadmapData.title);
+            const token = await auth.currentUser?.getIdToken();
+            const aiTasks = await fetchAIMiniTasks(newPlan, roadmapData.title, token);
             if (aiTasks && aiTasks.length > 0) {
                 const map = {};
                 aiTasks.forEach(t => { map[t.date] = t.miniTask; });

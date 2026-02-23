@@ -1,4 +1,4 @@
-export const GEMINI_API_KEY = "AIzaSyAsEC6YxkGbQPsTKg-d7ydohNKA9RJ5OjE";
+
 
 export const motivationalAlerts = {
     general: [

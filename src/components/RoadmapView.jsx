@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import ModuleAccordion from './ModuleAccordion';
 
-const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onShowResources, onAskTutor, onOpenPlanner }) => {
+const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onShowResources, onAskTutor, onOpenPlanner, onOpenResume, onGenerateQuiz, onTimeSpent }) => {
     const totalSteps = useMemo(() => roadmapData.stages.reduce((acc, stage) => acc + stage.modules.reduce((modAcc, mod) => modAcc + mod.steps.length, 0), 0), [roadmapData]);
     const completedSteps = Object.values(progress).filter(p => p.completed).length;
     const progressPercentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
@@ -21,6 +21,15 @@ const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onS
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                             Weekly Plan
+                        </button>
+                    )}
+                    {onOpenResume && (
+                        <button
+                            onClick={onOpenResume}
+                            className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-teal-600 transition-all duration-300 flex items-center shadow-md hover:shadow-lg hover:scale-105 active:scale-100 font-semibold"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            Resume
                         </button>
                     )}
                     <button onClick={() => alert("PDF export is a feature coming soon!")} className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
@@ -52,6 +61,8 @@ const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onS
                                 onToggleStep={onToggleStep}
                                 onShowResources={onShowResources}
                                 onAskTutor={onAskTutor}
+                                onGenerateQuiz={onGenerateQuiz}
+                                onTimeSpent={onTimeSpent}
                             />
                         ))}
                     </div>

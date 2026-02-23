@@ -1,0 +1,27 @@
+rules_version = '2';
+
+// ============================================================
+// Firestore Security Rules — AI Roadmap
+// ============================================================
+// This app does NOT use Firestore directly.
+// All data is stored in MongoDB accessed through the backend API.
+// Firebase is used ONLY for Authentication.
+//
+// These rules completely lock Firestore so that no one can
+// read or write to it, even if they have the API key.
+// ============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Deny ALL reads and writes to every document ---
+    // No client (authenticated or not) can access Firestore.
+    // If you add Firestore usage in the future, replace these
+    // rules with user-scoped rules like:
+    //   allow read, write: if request.auth != null
+    //                      && request.auth.uid == resource.data.userId;
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

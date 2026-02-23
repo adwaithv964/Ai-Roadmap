@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { auth } from '../config/firebase';
 import Header from '../components/Header';
 import PageHeader from '../components/PageHeader';
 import DomainSelector from '../components/DomainSelector';
@@ -10,6 +11,12 @@ import AIChatbot from '../components/AIChatbot';
 import AIQuizGenerator from '../components/AIQuizGenerator';
 import SkillGapAnalyzer from '../components/SkillGapAnalyzer';
 import WeeklyPlanner from '../components/WeeklyPlanner';
+import ResumeGenerator from '../components/ResumeGenerator';
+import CommunityHub from '../components/CommunityHub';
+import GamificationHUD from '../components/GamificationHUD';
+import LevelUpModal from '../components/LevelUpModal';
+import { XPToastContainer } from '../components/XPToast';
+import { useGamification } from '../hooks/useGamification';
 import { useProgressIntelligence } from '../hooks/useProgressIntelligence';
 import { motivationalAlerts, domains } from '../data/constants';
 
@@ -29,6 +36,22 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
     const [quizModule, setQuizModule] = useState(null);
     const [showSkillGap, setShowSkillGap] = useState(false);
     const [showWeeklyPlanner, setShowWeeklyPlanner] = useState(false);
+    const [showResumeGenerator, setShowResumeGenerator] = useState(false);
+    const [showCommunity, setShowCommunity] = useState(false);
+
+    // ── Gamification ──────────────────────────────────────────────────────────
+    const { stats: gamStats, awardXP, levelData } = useGamification();
+    const [xpToasts, setXpToasts] = useState([]);
+    const [levelUpEvent, setLevelUpEvent] = useState(null); // { newLevel, newLevelTitle }
+
+    const pushXPToast = useCallback((amount, reason) => {
+        const id = Date.now() + Math.random();
+        setXpToasts(prev => [...prev, { id, amount, reason }]);
+    }, []);
+
+    const removeXPToast = useCallback((id) => {
+        setXpToasts(prev => prev.filter(t => t.id !== id));
+    }, []);
 
     // Intelligence hook — runs on every progress change
     const targetDate = (() => { try { return localStorage.getItem('learningTargetDate') || ''; } catch { return ''; } })();
@@ -94,29 +117,98 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         setAppView('customizer');
     };
 
-    const handleGenerateRoadmap = (roadmapData) => {
-        setGeneratedRoadmap(roadmapData);
+    const handleGenerateRoadmap = async (roadmapData) => {
+        // Create a deep copy so we can mutate it with adaptations
+        let adaptedRoadmap = JSON.parse(JSON.stringify(roadmapData));
 
+        // 1. Fetch adaptations and progress from backend
+        let adaptations = { addedModules: [], skippedSteps: [] };
+        let backendProgress = {};
+        let timeSpent = {};
+        let quizScores = {};
+
+        try {
+            const token = await auth.currentUser?.getIdToken();
+            if (token) {
+                const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    backendProgress = data.progress || {};
+                    timeSpent = data.timeSpent || {};
+                    quizScores = data.quizScores || {};
+                    adaptations = data.adaptations || { addedModules: [], skippedSteps: [] };
+                }
+            }
+        } catch (e) {
+            console.error("Failed to fetch adaptations from backend", e);
+        }
+
+        // 2. Apply Skipped Steps
+        if (adaptations.skippedSteps && adaptations.skippedSteps.length > 0) {
+            adaptedRoadmap.stages.forEach(stage => {
+                stage.modules.forEach(module => {
+                    module.steps = module.steps.map(step => {
+                        if (adaptations.skippedSteps.includes(step.id)) {
+                            return { ...step, title: `⏭️ [Skipped] ${step.title}`, isSkipped: true };
+                        }
+                        return step;
+                    });
+                });
+            });
+        }
+
+        // 3. Apply Added Modules
+        if (adaptations.addedModules && adaptations.addedModules.length > 0) {
+            adaptations.addedModules.forEach(adaptation => {
+                const { afterModuleId, module: newModule } = adaptation;
+                adaptedRoadmap.stages.forEach(stage => {
+                    const targetIndex = stage.modules.findIndex(m => m.id === afterModuleId);
+                    if (targetIndex !== -1) {
+                        // Check if it's already added to prevent duplicates on re-renders
+                        if (!stage.modules.find(m => m.id === newModule.id)) {
+                            stage.modules.splice(targetIndex + 1, 0, newModule);
+                        }
+                    }
+                });
+            });
+        }
+
+        setGeneratedRoadmap(adaptedRoadmap);
+
+        // 4. Merge Progress
         const initialProgress = {};
-        roadmapData.stages.forEach(stage => {
+        adaptedRoadmap.stages.forEach(stage => {
             stage.modules.forEach(module => {
                 module.steps.forEach(step => {
-                    initialProgress[step.id] = { completed: false, skills: [] };
+                    // Auto-complete skipped steps
+                    initialProgress[step.id] = { completed: !!step.isSkipped, skills: [] };
                 });
             });
         });
 
-        try {
-            const savedProgress = localStorage.getItem(`progress_${selectedDomain}`);
-            if (savedProgress) {
-                const parsedSaved = JSON.parse(savedProgress);
-                Object.keys(initialProgress).forEach(stepId => {
-                    if (parsedSaved[stepId]) {
-                        initialProgress[stepId] = parsedSaved[stepId];
-                    }
-                });
+        // Merge backend progress
+        Object.keys(backendProgress).forEach(stepId => {
+            if (initialProgress[stepId]) {
+                initialProgress[stepId] = { ...initialProgress[stepId], ...backendProgress[stepId] };
             }
-        } catch (e) { console.error("Could not merge progress", e) }
+        });
+
+        // Fallback to local storage if backend is empty/failed
+        if (Object.keys(backendProgress).length === 0) {
+            try {
+                const savedProgress = localStorage.getItem(`progress_${selectedDomain}`);
+                if (savedProgress) {
+                    const parsedSaved = JSON.parse(savedProgress);
+                    Object.keys(initialProgress).forEach(stepId => {
+                        if (parsedSaved[stepId]) {
+                            initialProgress[stepId] = { ...initialProgress[stepId], ...parsedSaved[stepId] };
+                        }
+                    });
+                }
+            } catch (e) { console.error("Could not merge progress", e) }
+        }
 
         setProgress(initialProgress);
         setAppView('roadmap');
@@ -139,7 +231,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         }, 5000);
     };
 
-    const handleToggleStep = (step, moduleTitle) => {
+    const handleToggleStep = async (step, moduleTitle) => {
         const wasCompleted = progress[step.id]?.completed;
         const isNowCompleted = !wasCompleted;
 
@@ -156,38 +248,117 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         };
         setProgress(newState);
 
-        if (!isNowCompleted) return; // Only show toasts for completions
+        // ── XP deduction on UNTICK ──────────────────────────────────
+        if (!isNowCompleted) {
+            awardXP(-20, `Step unchecked: ${step.title || step.id}`).then(r => {
+                pushXPToast(Math.abs(r.xpAwarded || 20), 'unchecked');
+            });
+            return;
+        }
 
         const completedCountAfter = completedCountBefore + 1;
         const progressPercentBefore = Math.round((completedCountBefore / totalSteps) * 100);
         const progressPercentAfter = Math.round((completedCountAfter / totalSteps) * 100);
 
+        // ── Milestone toasts ─────────────────────────────────────────────────
         const milestones = [25, 50, 75];
+        let hitMilestone = false;
         milestones.forEach(ms => {
             if (progressPercentBefore < ms && progressPercentAfter >= ms) {
+                hitMilestone = true;
                 const message = motivationalAlerts.milestone[Math.floor(Math.random() * motivationalAlerts.milestone.length)];
                 showToast(`Reached ${ms}% Progress!`, message, 'milestone');
+                // Award milestone XP
+                awardXP(100, `${ms}% milestone reached!`).then(r => {
+                    pushXPToast(r.xpAwarded || 100, `🎯 ${ms}% Milestone!`);
+                    if (r.leveledUp) setLevelUpEvent({ newLevel: r.newLevel, newLevelTitle: r.newLevelTitle });
+                });
             }
         });
 
         if (completedCountAfter === 1) {
             const message = motivationalAlerts.first_step[Math.floor(Math.random() * motivationalAlerts.first_step.length)];
-            showToast("First Step Taken!", message, 'first_step');
+            showToast('First Step Taken!', message, 'first_step');
+            awardXP(20, 'First step!').then(r => {
+                pushXPToast(r.xpAwarded || 20, '🎉 First Step!');
+                if (r.leveledUp) setLevelUpEvent({ newLevel: r.newLevel, newLevelTitle: r.newLevelTitle });
+            });
             return;
         }
 
+        // ── Module complete ──────────────────────────────────────────────────
         const module = generatedRoadmap.stages.flatMap(s => s.modules).find(m => m.title === moduleTitle);
         if (module) {
             const allModuleStepsCompleted = module.steps.every(s => newState[s.id]?.completed);
             if (allModuleStepsCompleted) {
                 const message = motivationalAlerts.stage_complete[Math.floor(Math.random() * motivationalAlerts.stage_complete.length)];
                 showToast(`Module "${module.title}" Complete!`, message, 'stage_complete');
+                awardXP(50, `Module complete: ${module.title}`).then(r => {
+                    pushXPToast(r.xpAwarded || 50, `📦 Module Done!`);
+                    if (r.leveledUp) setLevelUpEvent({ newLevel: r.newLevel, newLevelTitle: r.newLevelTitle });
+                });
                 return;
             }
         }
 
-        const message = motivationalAlerts.general[Math.floor(Math.random() * motivationalAlerts.general.length)];
-        showToast("Step Completed!", message, 'general');
+        // ── Regular step XP ──────────────────────────────────────────────────
+        if (!hitMilestone) {
+            const message = motivationalAlerts.general[Math.floor(Math.random() * motivationalAlerts.general.length)];
+            showToast('Step Completed!', message, 'general');
+            awardXP(20, `Step: ${step.title || step.id}`).then(r => {
+                pushXPToast(r.xpAwarded || 20, '✅ Step Done');
+                if (r.leveledUp) setLevelUpEvent({ newLevel: r.newLevel, newLevelTitle: r.newLevelTitle });
+            });
+        }
+    };
+
+    const handleTimeSpent = async (moduleId, timeSpentSeconds) => {
+        try {
+            const token = await auth.currentUser?.getIdToken();
+            if (token && selectedDomain) {
+                await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ moduleId, timeSpent: timeSpentSeconds })
+                });
+            }
+        } catch (e) { console.error("Time tracking error", e) }
+    };
+
+    const handleQuizComplete = async (moduleId, score) => {
+        try {
+            const token = await auth.currentUser?.getIdToken();
+            if (token && selectedDomain) {
+                // 1. Save Score
+                await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ moduleId, quizScore: score })
+                });
+
+                // 2. Trigger AI Engine
+                const aiRes = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/adaptive/trigger`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ domainId: selectedDomain })
+                });
+
+                if (aiRes.ok) {
+                    const data = await aiRes.json();
+                    if (data.adaptations && (data.adaptations.addedModules.length > 0 || data.adaptations.skippedSteps.length > 0)) {
+                        showToast("Roadmap Adapted!", "The AI has analyzed your performance and adjusted your learning path.", "milestone");
+                        // Refresh the roadmap display by re-running the generator with the base static data
+                        const baseDomain = domains.find(d => d.id === selectedDomain);
+                        if (baseDomain) {
+                            // We need to re-fetch the static roadmap data for this domain.
+                            // For simplicity here, we assume if we just trigger a 'customizer' view -> 'generate' again, it works.
+                            // A cleaner way is to keep base unadapted roadmap in state, but we'll cheat a bit by re-generating.
+                            handleSelectDomain(selectedDomain);
+                        }
+                    }
+                }
+            }
+        } catch (e) { console.error("Quiz tracking error", e) }
     };
 
     const handleShowResources = (topicTitle) => { setShowRecommender(true); setRecommenderTopic(topicTitle); };
@@ -243,6 +414,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
                 onClearNotifications={handleClearNotifications}
                 onLogout={onLogout}
                 onOpenSkillGap={() => setShowSkillGap(true)}
+                onOpenCommunity={() => setShowCommunity(true)}
             />
 
             <PageHeader title={pageHeaderContent.title} subtitle={pageHeaderContent.subtitle} />
@@ -260,6 +432,8 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
                         onAskTutor={handleAskTutor}
                         onGenerateQuiz={handleGenerateQuiz}
                         onOpenPlanner={() => setShowWeeklyPlanner(true)}
+                        onOpenResume={() => setShowResumeGenerator(true)}
+                        onTimeSpent={handleTimeSpent}
                     />
                 )}
                 {appView === 'dashboard' && generatedRoadmap && (
@@ -285,7 +459,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
             </div>
 
             {showRecommender && <AIResourceRecommender topicTitle={recommenderTopic} onClose={handleCloseResources} />}
-            {quizModule && <AIQuizGenerator module={quizModule} onClose={() => setQuizModule(null)} />}
+            {quizModule && <AIQuizGenerator module={quizModule} onClose={() => setQuizModule(null)} onQuizComplete={handleQuizComplete} />}
             {showSkillGap && (
                 <SkillGapAnalyzer
                     onClose={() => setShowSkillGap(false)}
@@ -303,6 +477,34 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
                     onToggleStep={handleToggleStep}
                     onAskTutor={(msg) => { setShowWeeklyPlanner(false); handleAskTutor(msg); }}
                 />
+            )}
+            {showResumeGenerator && generatedRoadmap && (
+                <ResumeGenerator
+                    roadmapData={generatedRoadmap}
+                    progress={progress}
+                    onClose={() => setShowResumeGenerator(false)}
+                />
+            )}
+            {showCommunity && (
+                <CommunityHub
+                    onClose={() => setShowCommunity(false)}
+                    roadmapData={generatedRoadmap}
+                    progress={progress}
+                    domains={domains}
+                />
+            )}
+
+            {/* ── Gamification overlays ────────────────────────────── */}
+            {levelUpEvent && (
+                <LevelUpModal
+                    newLevel={levelUpEvent.newLevel}
+                    newLevelTitle={levelUpEvent.newLevelTitle}
+                    onClose={() => setLevelUpEvent(null)}
+                />
+            )}
+            <XPToastContainer toasts={xpToasts} onRemove={removeXPToast} />
+            {appView !== 'domainSelector' && appView !== 'customizer' && (
+                <GamificationHUD stats={gamStats} levelData={levelData} />
             )}
 
             {!isChatOpen && appView !== 'domainSelector' && appView !== 'customizer' && (

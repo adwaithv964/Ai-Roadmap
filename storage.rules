@@ -1,0 +1,27 @@
+rules_version = '2';
+
+// ============================================================
+// Firebase Storage Security Rules — AI Roadmap
+// ============================================================
+// This app does NOT use Firebase Storage.
+// All file uploads (if any) go through the backend API.
+//
+// These rules completely lock Storage so that no one can
+// read or upload files, even if they have the API key.
+// ============================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // --- Deny ALL reads and writes ---
+    // No client (authenticated or not) can access Storage.
+    // If you add file storage in future, replace with scoped rules like:
+    //   allow read: if request.auth != null;
+    //   allow write: if request.auth != null
+    //               && request.resource.size < 10 * 1024 * 1024  // 10MB limit
+    //               && request.resource.contentType.matches('image/.*');
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

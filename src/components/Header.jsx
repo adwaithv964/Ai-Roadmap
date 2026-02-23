@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NotificationCenter from './NotificationCenter';
 
-const Header = ({ darkMode, toggleDarkMode, onBack, notifications, onClearNotifications, onLogout, onOpenSkillGap }) => {
+const Header = ({ darkMode, toggleDarkMode, onBack, notifications, onClearNotifications, onLogout, onOpenSkillGap, onOpenCommunity }) => {
     const [isNotifOpen, setIsNotifOpen] = useState(false);
     return (
         <>
@@ -33,6 +33,24 @@ const Header = ({ darkMode, toggleDarkMode, onBack, notifications, onClearNotifi
                             onClear={onClearNotifications}
                         />
                     </div>
+                    {onOpenCommunity && (
+                        <button
+                            onClick={onOpenCommunity}
+                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-100"
+                            title="Community Hub — share, learn, connect"
+                        >
+                            🌐 Community
+                        </button>
+                    )}
+                    {onOpenCommunity && (
+                        <button
+                            onClick={onOpenCommunity}
+                            className="sm:hidden p-2 rounded-full hover:bg-black/20 transition-colors duration-300"
+                            title="Community Hub"
+                        >
+                            🌐
+                        </button>
+                    )}
                     {onOpenSkillGap && (
                         <button
                             onClick={onOpenSkillGap}
