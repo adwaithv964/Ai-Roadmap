@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level 1 Data Flow Diagram – AI Roadmap</title>
+  <style>
+    /* ───────────── Reset & Base ───────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+    }
+
+    /* ───────────── Cover Page ───────────── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 14cm;
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      color: #fff;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .cover h1 { font-size: 2.4rem; letter-spacing: 1px; margin-bottom: 12px; }
+    .cover h2 { font-size: 1.2rem; font-weight: 400; opacity: .75; margin-bottom: 32px; }
+    .cover .pill {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      padding: 6px 20px;
+      font-size: .85rem;
+      margin: 4px;
+      display: inline-block;
+    }
+
+    /* ───────────── Section Heading ───────────── */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 18px 32px 4px;
+      color: #2d3748;
+    }
+    .section-sub {
+      font-size: .78rem;
+      color: #718096;
+      padding: 0 32px 12px;
+    }
+
+    /* ───────────── Canvas Wrapper ───────────── */
+    .canvas-wrap {
+      overflow-x: auto;
+      padding: 24px 32px 40px;
+    }
+    svg.dfd {
+      display: block;
+      min-width: 860px;
+    }
+
+    /* ───────────── SVG element styles ───────────── */
+    /* External Entity – rectangle */
+    .ent rect { fill: #fff; stroke: #2d3748; stroke-width: 2; }
+    .ent text { font-size: 13px; font-weight: 700; fill: #1a202c; }
+
+    /* Process – ellipse */
+    .proc ellipse { fill: #ebf8ff; stroke: #3182ce; stroke-width: 1.8; }
+    .proc text { font-size: 12px; fill: #2b6cb0; font-weight: 600; }
+
+    /* Data Store – open rectangle (two horizontal lines) */
+    .ds line  { stroke: #2d3748; stroke-width: 1.8; }
+    .ds rect  { fill: #fefcbf; stroke: none; }
+    .ds text  { font-size: 11.5px; fill: #744210; font-weight: 600; }
+
+    /* Arrows */
+    .arrow { stroke: #4a5568; stroke-width: 1.5; fill: none; marker-end: url(#arr); }
+    .arrow-bi { stroke: #4a5568; stroke-width: 1.5; fill: none; marker-end: url(#arr); marker-start: url(#arrs); }
+
+    /* Page break helper */
+    .page-break { border: none; border-top: 2px dashed #cbd5e0; margin: 0 32px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     COVER
+════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <h1>AI Roadmap – Level 1 DFD</h1>
+  <h2>Data Flow Diagram · Level 1 Decomposition</h2>
+  <div>
+    <span class="pill">Level 1.1 · ADMIN</span>
+    <span class="pill">Level 1.2 · USER</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DFD 1.1 – ADMIN
+════════════════════════════════════════════════════════ -->
+<p class="section-title">LEVEL 1.1 : ADMIN</p>
+<p class="section-sub">Processes available to admin roles: super_admin · domain_expert · support</p>
+<div class="canvas-wrap">
+<svg class="dfd" viewBox="0 0 950 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#4a5568"/>
+    </marker>
+    <marker id="arrs" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto-start-reverse">
+      <polygon points="0 0,10 3.5,0 7" fill="#4a5568"/>
+    </marker>
+  </defs>
+
+  <!-- ── External Entity: Admin ── -->
+  <g class="ent" transform="translate(20,310)">
+    <rect width="90" height="44" rx="3"/>
+    <text x="45" y="27" text-anchor="middle">Admin</text>
+  </g>
+
+  <!-- ── PROCESS ELLIPSES (col 1) ── -->
+  <!-- P1 Login -->
+  <g class="proc" transform="translate(240,40)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.1 Login &amp; Role Verify</text>
+  </g>
+  <!-- P2 Dashboard -->
+  <g class="proc" transform="translate(240,100)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.2 View Dashboard Stats</text>
+  </g>
+  <!-- P3 User Mgmt -->
+  <g class="proc" transform="translate(240,160)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.3 Manage Users</text>
+  </g>
+  <!-- P4 Roadmap Control -->
+  <g class="proc" transform="translate(240,220)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.4 Manage Roadmaps</text>
+  </g>
+  <!-- P5 Resource Hub -->
+  <g class="proc" transform="translate(240,280)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.5 Review Resources</text>
+  </g>
+  <!-- P6 Feedback -->
+  <g class="proc" transform="translate(240,340)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.6 View / Delete Feedback</text>
+  </g>
+  <!-- P7 Notifications -->
+  <g class="proc" transform="translate(240,400)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.7 Send Notifications</text>
+  </g>
+  <!-- P8 Analytics Dropoff -->
+  <g class="proc" transform="translate(240,460)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.8 View Drop-off Analytics</text>
+  </g>
+  <!-- P9 Analytics Failure -->
+  <g class="proc" transform="translate(240,520)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.9 Failure Detection</text>
+  </g>
+  <!-- P10 Settings -->
+  <g class="proc" transform="translate(240,580)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.10 Manage Admin Settings</text>
+  </g>
+  <!-- P11 Roadmap Builder -->
+  <g class="proc" transform="translate(240,640)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">1.11 Roadmap Builder (AI)</text>
+  </g>
+
+  <!-- ── DATA STORES (right col) ── -->
+  <!-- DS1: Firebase Auth -->
+  <g class="ds" transform="translate(590,50)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D1: Firebase Auth</text>
+  </g>
+  <!-- DS2: MongoDB Users -->
+  <g class="ds" transform="translate(590,105)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D2: MongoDB · Users</text>
+  </g>
+  <!-- DS3: MongoDB Roadmaps -->
+  <g class="ds" transform="translate(590,160)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D3: MongoDB · Roadmaps</text>
+  </g>
+  <!-- DS4: MongoDB SuggestedResource -->
+  <g class="ds" transform="translate(590,215)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D4: MongoDB · SuggestedResources</text>
+  </g>
+  <!-- DS5: MongoDB Feedback -->
+  <g class="ds" transform="translate(590,270)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D5: MongoDB · Feedback</text>
+  </g>
+  <!-- DS6: MongoDB DailyStat -->
+  <g class="ds" transform="translate(590,325)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D6: MongoDB · DailyStats</text>
+  </g>
+  <!-- DS7: Gemini AI -->
+  <g class="ds" transform="translate(590,380)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D7: Gemini AI API</text>
+  </g>
+
+  <!-- ── ARROWS: Admin → Processes ── -->
+  <!-- Admin to each process (fan from 110,332) -->
+  <line class="arrow" x1="110" y1="325" x2="240" y2="62"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="122"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="182"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="242"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="302"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="362"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="422"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="482"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="542"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="602"/>
+  <line class="arrow" x1="110" y1="325" x2="240" y2="662"/>
+
+  <!-- ── ARROWS: Processes ↔ Data Stores ── -->
+  <!-- P1 ↔ DS1 Firebase Auth -->
+  <line class="arrow-bi" x1="460" y1="62" x2="590" y2="65"/>
+  <!-- P2 ↔ DS6 DailyStat + DS2 Users -->
+  <line class="arrow-bi" x1="460" y1="122" x2="590" y2="120"/><!-- DS2 -->
+  <line class="arrow" x1="520" y1="122" x2="590" y2="340"/><!-- DS6 -->
+  <!-- P3 ↔ DS2 Users -->
+  <line class="arrow-bi" x1="460" y1="182" x2="590" y2="175"/>
+  <!-- P4 ↔ DS3 Roadmaps -->
+  <line class="arrow-bi" x1="460" y1="242" x2="590" y2="175"/>
+  <!-- P5 ↔ DS4 SuggestedResources -->
+  <line class="arrow-bi" x1="460" y1="302" x2="590" y2="230"/>
+  <!-- P6 ↔ DS5 Feedback -->
+  <line class="arrow-bi" x1="460" y1="362" x2="590" y2="285"/>
+  <!-- P7 → DS2 push notifications -->
+  <line class="arrow" x1="460" y1="422" x2="590" y2="120"/>
+  <!-- P9 analytics dropoff → DS6 DailyStat -->
+  <line class="arrow" x1="460" y1="482" x2="590" y2="340"/>
+  <!-- P11 → DS7 Gemini AI -->
+  <line class="arrow-bi" x1="460" y1="662" x2="590" y2="395"/>
+
+  <!-- ── LABELS on key arrows ── -->
+  <text x="470" y="56" font-size="9" fill="#718096">Token / Auth</text>
+  <text x="470" y="116" font-size="9" fill="#718096">Stats Data</text>
+  <text x="470" y="176" font-size="9" fill="#718096">User CRUD</text>
+  <text x="470" y="236" font-size="9" fill="#718096">Roadmap CRUD</text>
+  <text x="470" y="296" font-size="9" fill="#718096">Approve / Reject</text>
+  <text x="470" y="356" font-size="9" fill="#718096">Feedback List</text>
+  <text x="470" y="416" font-size="9" fill="#718096">Broadcast</text>
+  <text x="470" y="476" font-size="9" fill="#718096">Drop-off Data</text>
+  <text x="470" y="656" font-size="9" fill="#718096">AI Prompt/Response</text>
+</svg>
+</div>
+
+<hr class="page-break"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     DFD 1.2 – USER
+════════════════════════════════════════════════════════ -->
+<p class="section-title">LEVEL 1.2 : USER</p>
+<p class="section-sub">Processes available to authenticated regular users</p>
+<div class="canvas-wrap">
+<svg class="dfd" viewBox="0 0 950 860" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#4a5568"/>
+    </marker>
+    <marker id="arrs2" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto-start-reverse">
+      <polygon points="0 0,10 3.5,0 7" fill="#4a5568"/>
+    </marker>
+  </defs>
+
+  <!-- ── External Entity: User ── -->
+  <g class="ent" transform="translate(20,390)">
+    <rect width="90" height="44" rx="3"/>
+    <text x="45" y="27" text-anchor="middle">User</text>
+  </g>
+
+  <!-- ── PROCESSES ── -->
+  <!-- P1 Register/Login -->
+  <g class="proc" transform="translate(240,40)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.1 Register / Login</text>
+  </g>
+  <!-- P2 Select Domain (Roadmap) -->
+  <g class="proc" transform="translate(240,100)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.2 Select Domain / Roadmap</text>
+  </g>
+  <!-- P3 View Roadmap -->
+  <g class="proc" transform="translate(240,160)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.3 View &amp; Navigate Roadmap</text>
+  </g>
+  <!-- P4 Track Progress -->
+  <g class="proc" transform="translate(240,220)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.4 Track Progress</text>
+  </g>
+  <!-- P5 Take AI Quiz -->
+  <g class="proc" transform="translate(240,280)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.5 Take AI Quiz</text>
+  </g>
+  <!-- P6 Adaptive Roadmap -->
+  <g class="proc" transform="translate(240,340)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.6 Adaptive Roadmap Engine</text>
+  </g>
+  <!-- P7 Gamification -->
+  <g class="proc" transform="translate(240,400)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.7 XP / Levels / Streaks</text>
+  </g>
+  <!-- P8 Weekly Planner -->
+  <g class="proc" transform="translate(240,460)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.8 Weekly Planner</text>
+  </g>
+  <!-- P9 Community -->
+  <g class="proc" transform="translate(240,520)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.9 Community Hub</text>
+  </g>
+  <!-- P10 Resource Recommender / Vote -->
+  <g class="proc" transform="translate(240,580)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.10 Resource Hub &amp; Voting</text>
+  </g>
+  <!-- P11 Skill Gap Analyzer -->
+  <g class="proc" transform="translate(240,640)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.11 Skill Gap Analyzer (AI)</text>
+  </g>
+  <!-- P12 Resume Generator -->
+  <g class="proc" transform="translate(240,700)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.12 Resume Generator (AI)</text>
+  </g>
+  <!-- P13 Feedback -->
+  <g class="proc" transform="translate(240,760)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.13 Submit Feedback</text>
+  </g>
+  <!-- P14 Notifications -->
+  <g class="proc" transform="translate(240,820)">
+    <ellipse cx="110" cy="22" rx="108" ry="22"/>
+    <text x="110" y="26" text-anchor="middle">2.14 View Notifications</text>
+  </g>
+
+  <!-- ── DATA STORES ── -->
+  <!-- DS1 Firebase Auth -->
+  <g class="ds" transform="translate(590,48)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D1: Firebase Auth</text>
+  </g>
+  <!-- DS2 Firestore (Domain Data) -->
+  <g class="ds" transform="translate(590,104)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D2: Firestore · Roadmap Domains</text>
+  </g>
+  <!-- DS3 MongoDB Roadmaps -->
+  <g class="ds" transform="translate(590,160)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D3: MongoDB · Roadmaps</text>
+  </g>
+  <!-- DS4 Progress -->
+  <g class="ds" transform="translate(590,216)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D4: MongoDB · User Progress</text>
+  </g>
+  <!-- DS5 Gemini AI -->
+  <g class="ds" transform="translate(590,272)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D5: Gemini AI API</text>
+  </g>
+  <!-- DS6 MongoDB Users (XP/Level) -->
+  <g class="ds" transform="translate(590,328)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D6: MongoDB · Users (XP/Level)</text>
+  </g>
+  <!-- DS7 Community Posts -->
+  <g class="ds" transform="translate(590,384)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D7: MongoDB · CommunityPosts</text>
+  </g>
+  <!-- DS8 Study Groups -->
+  <g class="ds" transform="translate(590,440)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D8: MongoDB · StudyGroups</text>
+  </g>
+  <!-- DS9 Resource Votes -->
+  <g class="ds" transform="translate(590,496)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D9: MongoDB · ResourceVotes</text>
+  </g>
+  <!-- DS10 Feedback -->
+  <g class="ds" transform="translate(590,552)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D10: MongoDB · Feedback</text>
+  </g>
+  <!-- DS11 Notifications (embedded in User) -->
+  <g class="ds" transform="translate(590,608)">
+    <line x1="0" y1="0" x2="240" y2="0"/>
+    <line x1="0" y1="30" x2="240" y2="30"/>
+    <rect x="0" y="0" width="240" height="30"/>
+    <text x="120" y="20" text-anchor="middle">D11: MongoDB · Notifications[]</text>
+  </g>
+
+  <!-- ── ARROWS: User → Processes ── -->
+  <line class="arrow" x1="110" y1="412" x2="240" y2="62" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="122" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="182" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="242" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="302" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="362" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="422" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="482" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="542" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="602" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="662" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="722" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="782" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <line class="arrow" x1="110" y1="412" x2="240" y2="842" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+
+  <!-- ── ARROWS: Processes ↔ Data Stores ── -->
+  <!-- P1 ↔ DS1 Firebase Auth -->
+  <line x1="460" y1="62" x2="590" y2="63" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P2 ↔ DS2 Firestore Domains -->
+  <line x1="460" y1="122" x2="590" y2="119" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P3 ↔ DS3 Roadmaps -->
+  <line x1="460" y1="182" x2="590" y2="175" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P4 ↔ DS4 Progress -->
+  <line x1="460" y1="242" x2="590" y2="231" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P5 ↔ DS5 Gemini -->
+  <line x1="460" y1="302" x2="590" y2="287" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P6 ↔ DS5 Gemini + DS4 Progress -->
+  <line x1="460" y1="362" x2="590" y2="287" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P7 ↔ DS6 Users XP -->
+  <line x1="460" y1="422" x2="590" y2="343" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P8 ↔ DS6 Users (planner embedded) -->
+  <line x1="460" y1="482" x2="590" y2="343" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <!-- P9 ↔ DS7 CommunityPosts + DS8 StudyGroups -->
+  <line x1="460" y1="542" x2="590" y2="399" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <line x1="480" y1="542" x2="590" y2="455" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P10 ↔ DS9 ResourceVotes -->
+  <line x1="460" y1="602" x2="590" y2="511" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P11 ↔ DS5 Gemini -->
+  <line x1="460" y1="662" x2="590" y2="287" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P12 ↔ DS5 Gemini -->
+  <line x1="460" y1="722" x2="590" y2="287" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+  <!-- P13 → DS10 Feedback -->
+  <line x1="460" y1="782" x2="590" y2="567" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2)"/>
+  <!-- P14 ← DS11 Notifications -->
+  <line x1="460" y1="842" x2="590" y2="623" style="stroke:#4a5568;stroke-width:1.5;fill:none;marker-end:url(#arr2);marker-start:url(#arrs2)"/>
+
+  <!-- Labels -->
+  <text x="470" y="57" font-size="9" fill="#718096">Register/Token</text>
+  <text x="470" y="116" font-size="9" fill="#718096">Domain List</text>
+  <text x="470" y="176" font-size="9" fill="#718096">Roadmap JSON</text>
+  <text x="470" y="236" font-size="9" fill="#718096">Read/Write Progress</text>
+  <text x="470" y="296" font-size="9" fill="#718096">Quiz Q&amp;A</text>
+  <text x="470" y="356" font-size="9" fill="#718096">AI Adaptations</text>
+  <text x="470" y="416" font-size="9" fill="#718096">XP / Streak Data</text>
+  <text x="470" y="476" font-size="9" fill="#718096">Study Plan</text>
+  <text x="470" y="536" font-size="9" fill="#718096">Posts / Groups</text>
+  <text x="470" y="596" font-size="9" fill="#718096">Votes / Suggest</text>
+  <text x="470" y="656" font-size="9" fill="#718096">Skill Analysis</text>
+  <text x="470" y="716" font-size="9" fill="#718096">Resume PDF/AI</text>
+  <text x="470" y="776" font-size="9" fill="#718096">Feedback Submit</text>
+  <text x="470" y="836" font-size="9" fill="#718096">Notification Read</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     LEGEND
+════════════════════════════════════════════════════════ -->
+<div style="padding:24px 32px 48px; background:#fff; border-top:1px solid #e2e8f0; margin-top:16px;">
+  <p style="font-weight:700;font-size:.95rem;margin-bottom:14px;color:#2d3748;">Legend</p>
+  <div style="display:flex;flex-wrap:wrap;gap:24px;font-size:.82rem;color:#4a5568;">
+    <span>
+      <svg width="60" height="28" style="vertical-align:middle">
+        <ellipse cx="30" cy="14" rx="28" ry="13" fill="#ebf8ff" stroke="#3182ce" stroke-width="1.8"/>
+        <text x="30" y="18" text-anchor="middle" font-size="9" fill="#2b6cb0" font-weight="600">Process</text>
+      </svg>
+      &nbsp;Process (rounded ellipse)
+    </span>
+    <span>
+      <svg width="70" height="28" style="vertical-align:middle">
+        <rect x="4" y="4" width="62" height="20" fill="#fff" stroke="#2d3748" stroke-width="2"/>
+        <text x="35" y="18" text-anchor="middle" font-size="9" fill="#1a202c" font-weight="700">Entity</text>
+      </svg>
+      &nbsp;External Entity (rectangle)
+    </span>
+    <span>
+      <svg width="100" height="28" style="vertical-align:middle">
+        <line x1="0" y1="4" x2="100" y2="4" stroke="#2d3748" stroke-width="1.8"/>
+        <rect x="0" y="4" width="100" height="20" fill="#fefcbf"/>
+        <line x1="0" y1="24" x2="100" y2="24" stroke="#2d3748" stroke-width="1.8"/>
+        <text x="50" y="18" text-anchor="middle" font-size="9" fill="#744210" font-weight="600">Data Store</text>
+      </svg>
+      &nbsp;Data Store (open rectangle)
+    </span>
+    <span>
+      <svg width="60" height="14" style="vertical-align:middle">
+        <defs>
+          <marker id="la" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0,8 3,0 6" fill="#4a5568"/>
+          </marker>
+          <marker id="las" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto-start-reverse">
+            <polygon points="0 0,8 3,0 6" fill="#4a5568"/>
+          </marker>
+        </defs>
+        <line x1="4" y1="7" x2="56" y2="7" stroke="#4a5568" stroke-width="1.5" marker-end="url(#la)"/>
+      </svg>
+      &nbsp;Unidirectional flow
+    </span>
+    <span>
+      <svg width="60" height="14" style="vertical-align:middle">
+        <line x1="4" y1="7" x2="56" y2="7" stroke="#4a5568" stroke-width="1.5" marker-end="url(#la)" marker-start="url(#las)"/>
+      </svg>
+      &nbsp;Bidirectional flow
+    </span>
+  </div>
+</div>
+
+</body>
+</html>

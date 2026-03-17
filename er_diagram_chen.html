@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Chen Notation ER Diagram – AI Roadmap</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #fff;
+            padding: 44px 40px;
+            text-align: center
+        }
+
+        .cover h1 {
+            font-size: 2rem;
+            margin-bottom: 8px
+        }
+
+        .cover p {
+            opacity: .7;
+            margin-bottom: 18px;
+            font-size: .95rem
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            padding: 4px 16px;
+            font-size: .78rem;
+            margin: 3px
+        }
+
+        .canvas-wrap {
+            overflow: auto;
+            background: #fff;
+            padding: 28px
+        }
+
+        svg.chen {
+            display: block;
+            min-width: 1360px
+        }
+
+        .legend {
+            background: #fff;
+            border-top: 2px solid #e2e8f0;
+            padding: 18px 36px 26px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            align-items: center;
+            font-size: .8rem;
+            color: #4a5568
+        }
+
+        .legend h3 {
+            width: 100%;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 6px;
+            font-size: .9rem
+        }
+
+        .leg {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .foot {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 16px 36px;
+            font-size: .8rem
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover">
+        <h1>Chen Notation ER Diagram</h1>
+        <p>AI Roadmap · Entity Relationship Diagram (Chen / Conceptual Style)</p>
+        <span class="pill">Rectangles = Entities</span>
+        <span class="pill">Diamonds = Relationships</span>
+        <span class="pill">Ellipses = Attributes</span>
+        <span class="pill">Underline = Primary Key</span>
+    </div>
+
+    <div class="canvas-wrap">
+        <svg class="chen" viewBox="0 0 1380 940" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="ht" markerWidth="1" markerHeight="1" refX=".5" refY=".5" orient="auto">
+                    <rect width="1" height="1" fill="#4a5568" />
+                </marker>
+            </defs>
+
+            <!-- ═══════════════════════════════════════════
+     HELPER MACROS (drawn manually per element)
+     Layout overview:
+       FIREBASE_AUTH  (150,100)
+       ROADMAP        (680,100)
+       DAILY_STAT     (1200,100)
+       USER           (430,390)
+       STUDY_GROUP    (1090,390)
+       COMMUNITY_POST (130,600)
+       RESOURCE_VOTE  (520,750)
+       FEEDBACK       (175,820)
+       SUGG_RESOURCE  (1000,680)
+═══════════════════════════════════════════ -->
+
+            <!-- ═══ CONNECTION LINES (draw beneath shapes) ═══ -->
+
+            <!-- FA ↔ AUTHENTICATES ↔ USER -->
+            <line x1="150" y1="120" x2="290" y2="240" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="430" y1="367" x2="310" y2="260" stroke="#4a5568" stroke-width="1.4" />
+            <!-- cardinality -->
+            <text x="162" y="165" font-size="12" font-weight="700" fill="#c05621">1</text>
+            <text x="405" y="358" font-size="12" font-weight="700" fill="#c05621">1</text>
+
+            <!-- USER ↔ CREATES_POST ↔ COMMUNITY_POST -->
+            <line x1="407" y1="410" x2="270" y2="530" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="130" y1="578" x2="250" y2="551" stroke="#4a5568" stroke-width="1.4" />
+            <text x="404" y="445" font-size="12" font-weight="700" fill="#1e3a5f">1</text>
+            <text x="155" y="572" font-size="12" font-weight="700" fill="#1e3a5f">N</text>
+
+            <!-- USER ↔ TRACKS ↔ ROADMAP -->
+            <line x1="452" y1="367" x2="584" y2="222" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="680" y1="120" x2="608" y2="205" stroke="#4a5568" stroke-width="1.4" />
+            <text x="452" y="350" font-size="12" font-weight="700" fill="#1e3a5f">M</text>
+            <text x="666" y="145" font-size="12" font-weight="700" fill="#1e3a5f">N</text>
+
+            <!-- USER ↔ JOINS ↔ STUDY_GROUP -->
+            <line x1="553" y1="390" x2="818" y2="390" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="968" y1="390" x2="1090" y2="390" stroke="#4a5568" stroke-width="1.4" />
+            <text x="565" y="385" font-size="12" font-weight="700" fill="#1e3a5f">M</text>
+            <text x="965" y="385" font-size="12" font-weight="700" fill="#1e3a5f">N</text>
+
+            <!-- USER ↔ VOTES ↔ RESOURCE_VOTE -->
+            <line x1="453" y1="413" x2="485" y2="640" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="519" y1="727" x2="500" y2="662" stroke="#4a5568" stroke-width="1.4" />
+            <text x="464" y="460" font-size="12" font-weight="700" fill="#1e3a5f">M</text>
+            <text x="510" y="720" font-size="12" font-weight="700" fill="#1e3a5f">N</text>
+
+            <!-- USER ↔ SUBMITS_FB ↔ FEEDBACK -->
+            <line x1="411" y1="413" x2="270" y2="730" stroke="#4a5568" stroke-width="1.4" />
+            <line x1="175" y1="800" x2="252" y2="750" stroke="#4a5568" stroke-width="1.4" />
+            <text x="400" y="455" font-size="12" font-weight="700" fill="#1e3a5f">1</text>
+            <text x="175" y="796" font-size="12" font-weight="700" fill="#1e3a5f">N</text>
+
+            <!-- COMMUNITY_POST ↔ BELONGS_CP ↔ ROADMAP (dashed) -->
+            <line x1="190" y1="578" x2="430" y2="200" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <line x1="430" y1="200" x2="620" y2="120" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <text x="370" y="320" font-size="10" fill="#a0aec0">domainId</text>
+
+            <!-- STUDY_GROUP ↔ BELONGS_SG ↔ ROADMAP (dashed) -->
+            <line x1="1090" y1="370" x2="890" y2="200" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <line x1="890" y1="200" x2="740" y2="120" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <text x="880" y="195" font-size="10" fill="#a0aec0">domainId</text>
+
+            <!-- USER ↔ REVIEWS ↔ SUGG_RESOURCE (dashed) -->
+            <line x1="553" y1="380" x2="820" y2="560" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <line x1="820" y1="560" x2="950" y2="668" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <text x="700" y="475" font-size="10" fill="#a0aec0">admin</text>
+
+            <!-- DAILY_STAT ↔ AGGREGATES ↔ Firebase (dashed) -->
+            <line x1="1200" y1="118" x2="1060" y2="118" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <line x1="1060" y1="118" x2="220" y2="100" stroke="#a0aec0" stroke-width="1.2" stroke-dasharray="6,3" />
+            <text x="700" y="111" font-size="10" fill="#a0aec0">aggregates user counts</text>
+
+
+            <!-- ═══ ATTRIBUTE LINES (entity → attribute ellipse) ═══ -->
+
+            <!-- FIREBASE_AUTH attrs: (150,100) -->
+            <line x1="150" y1="90" x2="90" y2="30" stroke="#718096" stroke-width="1.1" />
+            <line x1="130" y1="100" x2="50" y2="85" stroke="#718096" stroke-width="1.1" />
+            <line x1="170" y1="90" x2="200" y2="30" stroke="#718096" stroke-width="1.1" />
+            <line x1="170" y1="108" x2="230" y2="80" stroke="#718096" stroke-width="1.1" />
+
+            <!-- ROADMAP attrs: (680,100) -->
+            <line x1="660" y1="90" x2="590" y2="30" stroke="#718096" stroke-width="1.1" />
+            <line x1="680" y1="88" x2="680" y2="22" stroke="#718096" stroke-width="1.1" />
+            <line x1="700" y1="90" x2="760" y2="32" stroke="#718096" stroke-width="1.1" />
+            <line x1="710" y1="100" x2="790" y2="75" stroke="#718096" stroke-width="1.1" />
+            <line x1="648" y1="100" x2="560" y2="78" stroke="#718096" stroke-width="1.1" />
+
+            <!-- DAILY_STAT attrs: (1200,100) -->
+            <line x1="1216" y1="90" x2="1270" y2="38" stroke="#718096" stroke-width="1.1" />
+            <line x1="1200" y1="88" x2="1200" y2="30" stroke="#718096" stroke-width="1.1" />
+            <line x1="1184" y1="90" x2="1148" y2="42" stroke="#718096" stroke-width="1.1" />
+
+            <!-- USER attrs: (430,390) -->
+            <line x1="413" y1="373" x2="348" y2="310" stroke="#718096" stroke-width="1.1" />
+            <line x1="430" y1="370" x2="400" y2="296" stroke="#718096" stroke-width="1.1" />
+            <line x1="447" y1="372" x2="490" y2="305" stroke="#718096" stroke-width="1.1" />
+            <line x1="460" y1="378" x2="520" y2="320" stroke="#718096" stroke-width="1.1" />
+            <line x1="400" y1="385" x2="330" y2="368" stroke="#718096" stroke-width="1.1" />
+            <line x1="398" y1="395" x2="325" y2="400" stroke="#718096" stroke-width="1.1" />
+            <line x1="396" y1="405" x2="338" y2="432" stroke="#718096" stroke-width="1.1" />
+            <line x1="458" y1="406" x2="500" y2="440" stroke="#718096" stroke-width="1.1" />
+            <line x1="463" y1="395" x2="535" y2="390" stroke="#718096" stroke-width="1.1" /> <!-- to notifications -->
+
+            <!-- COMMUNITY_POST attrs: (130,600) -->
+            <line x1="112" y1="588" x2="44" y2="542" stroke="#718096" stroke-width="1.1" />
+            <line x1="118" y1="600" x2="38" y2="600" stroke="#718096" stroke-width="1.1" />
+            <line x1="112" y1="612" x2="52" y2="648" stroke="#718096" stroke-width="1.1" />
+            <line x1="148" y1="590" x2="200" y2="545" stroke="#718096" stroke-width="1.1" />
+            <line x1="148" y1="612" x2="185" y2="652" stroke="#718096" stroke-width="1.1" />
+
+            <!-- STUDY_GROUP attrs: (1090,390) -->
+            <line x1="1108" y1="378" x2="1165" y2="330" stroke="#718096" stroke-width="1.1" />
+            <line x1="1112" y1="390" x2="1185" y2="390" stroke="#718096" stroke-width="1.1" />
+            <line x1="1108" y1="402" x2="1165" y2="450" stroke="#718096" stroke-width="1.1" />
+            <line x1="1072" y1="378" x2="1020" y2="328" stroke="#718096" stroke-width="1.1" />
+
+            <!-- RESOURCE_VOTE attrs: (520,750) -->
+            <line x1="502" y1="738" x2="440" y2="700" stroke="#718096" stroke-width="1.1" />
+            <line x1="505" y1="750" x2="432" y2="755" stroke="#718096" stroke-width="1.1" />
+            <line x1="538" y1="738" x2="590" y2="695" stroke="#718096" stroke-width="1.1" />
+            <line x1="540" y1="750" x2="608" y2="756" stroke="#718096" stroke-width="1.1" />
+
+            <!-- FEEDBACK attrs: (175,820) -->
+            <line x1="157" y1="810" x2="100" y2="772" stroke="#718096" stroke-width="1.1" />
+            <line x1="162" y1="820" x2="92" y2="822" stroke="#718096" stroke-width="1.1" />
+            <line x1="175" y1="808" x2="175" y2="762" stroke="#718096" stroke-width="1.1" />
+            <line x1="192" y1="811" x2="240" y2="776" stroke="#718096" stroke-width="1.1" />
+
+            <!-- SUGG_RESOURCE attrs: (1000,680) -->
+            <line x1="1018" y1="668" x2="1072" y2="628" stroke="#718096" stroke-width="1.1" />
+            <line x1="1022" y1="680" x2="1090" y2="680" stroke="#718096" stroke-width="1.1" />
+            <line x1="1018" y1="692" x2="1072" y2="730" stroke="#718096" stroke-width="1.1" />
+            <line x1="982" y1="668" x2="928" y2="628" stroke="#718096" stroke-width="1.1" />
+
+
+            <!-- ═══ RELATIONSHIP DIAMONDS ═══ -->
+
+            <!-- AUTHENTICATES (300, 250) -->
+            <polygon points="300,222 360,250 300,278 240,250" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" />
+            <text x="300" y="254" text-anchor="middle" font-size="9.5" font-weight="700"
+                fill="#2b6cb0">AUTHENTICATES</text>
+
+            <!-- CREATES_POST (260, 540) -->
+            <polygon points="260,512 320,540 260,568 200,540" fill="#f0fff4" stroke="#276749" stroke-width="1.8" />
+            <text x="260" y="544" text-anchor="middle" font-size="9.5" font-weight="700" fill="#276749">CREATES</text>
+
+            <!-- TRACKS_PROGRESS (596, 213) -->
+            <polygon points="596,185 656,213 596,241 536,213" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" />
+            <text x="596" y="217" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2b6cb0">TRACKS
+                PROGRESS</text>
+
+            <!-- JOINS (893, 390) -->
+            <polygon points="893,362 953,390 893,418 833,390" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" />
+            <text x="893" y="394" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2b6cb0">JOINS</text>
+
+            <!-- VOTES_ON (492, 650) -->
+            <polygon points="492,622 552,650 492,678 432,650" fill="#faf5ff" stroke="#6b46c1" stroke-width="1.8" />
+            <text x="492" y="654" text-anchor="middle" font-size="9.5" font-weight="700" fill="#6b46c1">VOTES ON</text>
+
+            <!-- SUBMITS_FEEDBACK (258, 738) -->
+            <polygon points="258,710 318,738 258,766 198,738" fill="#fff5f5" stroke="#c53030" stroke-width="1.8" />
+            <text x="258" y="742" text-anchor="middle" font-size="9.5" font-weight="700" fill="#c53030">SUBMITS</text>
+
+
+            <!-- ═══ ENTITIES ═══ -->
+
+            <!-- FIREBASE_AUTH (cx=150, cy=100) w=160 h=38 -->
+            <rect x="70" y="81" width="160" height="38" rx="4" fill="#b45309" />
+            <text x="150" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">FIREBASE_AUTH</text>
+
+            <!-- ROADMAP (cx=680, cy=100) -->
+            <rect x="600" y="81" width="160" height="38" rx="4" fill="#1e3a5f" />
+            <text x="680" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">ROADMAP</text>
+
+            <!-- DAILY_STAT (cx=1200, cy=100) -->
+            <rect x="1120" y="81" width="160" height="38" rx="4" fill="#1e3a5f" />
+            <text x="1200" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">DAILY_STAT</text>
+
+            <!-- USER (cx=430, cy=390) — double rect = central strong entity -->
+            <rect x="345" y="371" width="210" height="38" rx="4" fill="#1e3a5f" stroke="#4299e1" stroke-width="2.5" />
+            <rect x="349" y="375" width="202" height="30" rx="2" fill="none" stroke="#fff" stroke-width="1"
+                stroke-dasharray="2,2" />
+            <text x="450" y="395" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">USER</text>
+
+            <!-- COMMUNITY_POST (cx=130, cy=600) -->
+            <rect x="42" y="581" width="176" height="38" rx="4" fill="#1e3a5f" />
+            <text x="130" y="605" text-anchor="middle" font-size="12" font-weight="700"
+                fill="#fff">COMMUNITY_POST</text>
+
+            <!-- STUDY_GROUP (cx=1090, cy=390) -->
+            <rect x="1008" y="371" width="164" height="38" rx="4" fill="#1e3a5f" />
+            <text x="1090" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">STUDY_GROUP</text>
+
+            <!-- RESOURCE_VOTE (cx=520, cy=750) -->
+            <rect x="440" y="731" width="160" height="38" rx="4" fill="#1e3a5f" />
+            <text x="520" y="755" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">RESOURCE_VOTE</text>
+
+            <!-- FEEDBACK (cx=175, cy=820) -->
+            <rect x="100" y="801" width="150" height="38" rx="4" fill="#1e3a5f" />
+            <text x="175" y="825" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">FEEDBACK</text>
+
+            <!-- SUGGESTED_RESOURCE (cx=1000, cy=680) -->
+            <rect x="908" y="661" width="184" height="38" rx="4" fill="#1e3a5f" />
+            <text x="1000" y="685" text-anchor="middle" font-size="12" font-weight="700"
+                fill="#fff">SUGG_RESOURCE</text>
+
+
+            <!-- ═══ ATTRIBUTE ELLIPSES ═══ -->
+            <!-- Convention: PK attributes drawn with underline text trick (two text lines) -->
+            <!-- FK refs shown with dashed ellipse border -->
+
+            <!-- ── FIREBASE_AUTH attrs ── -->
+            <ellipse cx="90" cy="22" rx="48" ry="14" fill="#fff" stroke="#b45309" stroke-width="1.3" />
+            <text x="90" y="27" text-anchor="middle" font-size="9.5" fill="#1a202c">uid</text>
+            <line x1="66" y1="28" x2="114" y2="28" stroke="#1a202c" stroke-width="1.2" /><!-- underline for PK -->
+
+            <ellipse cx="46" cy="80" rx="42" ry="13" fill="#fff" stroke="#b45309" stroke-width="1.3" />
+            <text x="46" y="84" text-anchor="middle" font-size="9.5" fill="#1a202c">email</text>
+
+            <ellipse cx="200" cy="22" rx="56" ry="14" fill="#fff" stroke="#b45309" stroke-width="1.3" />
+            <text x="200" y="27" text-anchor="middle" font-size="9.5" fill="#1a202c">displayName</text>
+
+            <ellipse cx="238" cy="72" rx="54" ry="13" fill="#fff" stroke="#b45309" stroke-width="1.3" />
+            <text x="238" y="76" text-anchor="middle" font-size="9.5" fill="#1a202c">lastSignInTime</text>
+
+            <!-- ── ROADMAP attrs ── -->
+            <ellipse cx="590" cy="22" rx="42" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="590" y="27" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="568" y1="28" x2="612" y2="28" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="680" cy="15" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="680" y="19" text-anchor="middle" font-size="9.5" fill="#1a202c">title</text>
+
+            <ellipse cx="768" cy="24" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="768" y="28" text-anchor="middle" font-size="9.5" fill="#1a202c">slug</text>
+            <line x1="750" y1="30" x2="786" y2="30" stroke="#38a169" stroke-width="1.2" /><!-- UK underline in green -->
+
+            <ellipse cx="804" cy="68" rx="40" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="804" y="72" text-anchor="middle" font-size="9.5" fill="#1a202c">status</text>
+
+            <ellipse cx="556" cy="72" rx="42" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="556" y="76" text-anchor="middle" font-size="9.5" fill="#1a202c">category</text>
+
+            <!-- ── DAILY_STAT attrs ── -->
+            <ellipse cx="1200" cy="22" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1200" y="26" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="1178" y1="27" x2="1222" y2="27" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="1272" cy="30" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1272" y="34" text-anchor="middle" font-size="9.5" fill="#1a202c">date</text>
+
+            <ellipse cx="1148" cy="35" rx="44" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1148" y="39" text-anchor="middle" font-size="9.5" fill="#1a202c">newUsers</text>
+
+            <!-- ── USER attrs ── -->
+            <ellipse cx="346" cy="302" rx="38" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="346" y="306" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="324" y1="308" x2="368" y2="308" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="400" cy="288" rx="38" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="400" y="292" text-anchor="middle" font-size="9.5" fill="#1a202c">email</text>
+
+            <ellipse cx="490" cy="298" rx="42" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="490" y="302" text-anchor="middle" font-size="9.5" fill="#1a202c">firebaseUid</text>
+            <line x1="464" y1="306" x2="516" y2="306" stroke="#c05621" stroke-width="1.1" stroke-dasharray="3,2" />
+
+            <ellipse cx="524" cy="314" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="524" y="318" text-anchor="middle" font-size="9.5" fill="#1a202c">role</text>
+
+            <ellipse cx="322" cy="365" rx="36" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="322" y="369" text-anchor="middle" font-size="9.5" fill="#1a202c">xp</text>
+
+            <ellipse cx="310" cy="398" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="310" y="402" text-anchor="middle" font-size="9.5" fill="#1a202c">level</text>
+
+            <ellipse cx="326" cy="432" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+            <text x="326" y="436" text-anchor="middle" font-size="9.5" fill="#1a202c">streak</text>
+
+            <ellipse cx="510" cy="444" rx="56" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8"
+                stroke-dasharray="4,2" />
+            <text x="510" y="448" text-anchor="middle" font-size="9.5" fill="#1a202c">notifications{ }</text>
+
+            <ellipse cx="550" cy="390" rx="54" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.8"
+                stroke-dasharray="4,2" />
+            <text x="550" y="394" text-anchor="middle" font-size="9.5" fill="#1a202c">xpHistory[ ]</text>
+
+            <!-- ── COMMUNITY_POST attrs ── -->
+            <ellipse cx="38" cy="535" rx="32" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="38" y="539" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="16" y1="540" x2="60" y2="540" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="32" cy="598" rx="32" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="32" y="602" text-anchor="middle" font-size="9.5" fill="#1a202c">type</text>
+
+            <ellipse cx="40" cy="648" rx="40" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="40" y="652" text-anchor="middle" font-size="9.5" fill="#1a202c">content</text>
+
+            <ellipse cx="210" cy="536" rx="54" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="210" y="540" text-anchor="middle" font-size="9.5" fill="#1a202c">progressPercent</text>
+
+            <ellipse cx="202" cy="658" rx="38" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.3"
+                stroke-dasharray="4,2" />
+            <text x="202" y="662" text-anchor="middle" font-size="9.5" fill="#1a202c">likes[ ]</text>
+
+            <!-- ── STUDY_GROUP attrs ── -->
+            <ellipse cx="1020" cy="320" rx="38" ry="14" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1020" y="324" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="998" y1="326" x2="1042" y2="326" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="1182" cy="324" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1182" y="328" text-anchor="middle" font-size="9.5" fill="#1a202c">name</text>
+
+            <ellipse cx="1186" cy="390" rx="52" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1186" y="394" text-anchor="middle" font-size="9.5" fill="#1a202c">maxMembers</text>
+
+            <ellipse cx="1180" cy="456" rx="40" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1180" y="460" text-anchor="middle" font-size="9.5" fill="#1a202c">isPublic</text>
+
+            <!-- ── RESOURCE_VOTE attrs ── -->
+            <ellipse cx="430" cy="695" rx="44" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="430" y="699" text-anchor="middle" font-size="9.5" fill="#1a202c">topicKey</text>
+
+            <ellipse cx="426" cy="754" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="426" y="758" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="404" y1="759" x2="448" y2="759" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="612" cy="688" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="612" y="692" text-anchor="middle" font-size="9.5" fill="#1a202c">helpful</text>
+
+            <ellipse cx="618" cy="754" rx="46" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="618" y="758" text-anchor="middle" font-size="9.5" fill="#1a202c">notHelpful</text>
+
+            <!-- ── FEEDBACK attrs ── -->
+            <ellipse cx="96" cy="766" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="96" y="770" text-anchor="middle" font-size="9.5" fill="#1a202c">_id</text>
+            <line x1="74" y1="771" x2="118" y2="771" stroke="#1a202c" stroke-width="1.2" />
+
+            <ellipse cx="88" cy="822" rx="38" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="88" y="826" text-anchor="middle" font-size="9.5" fill="#1a202c">rating</text>
+
+            <ellipse cx="175" cy="754" rx="40" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="175" y="758" text-anchor="middle" font-size="9.5" fill="#1a202c">category</text>
+
+            <ellipse cx="246" cy="770" rx="42" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="246" y="774" text-anchor="middle" font-size="9.5" fill="#1a202c">feedback</text>
+
+            <!-- ── SUGG_RESOURCE attrs ── -->
+            <ellipse cx="1078" cy="620" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1078" y="624" text-anchor="middle" font-size="9.5" fill="#1a202c">title</text>
+
+            <ellipse cx="1096" cy="680" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1096" y="684" text-anchor="middle" font-size="9.5" fill="#1a202c">status</text>
+
+            <ellipse cx="1082" cy="738" rx="34" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="1082" y="742" text-anchor="middle" font-size="9.5" fill="#1a202c">type</text>
+
+            <ellipse cx="924" cy="622" rx="36" ry="13" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" />
+            <text x="924" y="626" text-anchor="middle" font-size="9.5" fill="#1a202c">topic</text>
+
+            <!-- NOTE BOX bottom-right -->
+            <rect x="1140" y="780" width="222" height="130" rx="8" fill="#fffbeb" stroke="#f6ad55" stroke-width="1.5" />
+            <text x="1150" y="800" font-size="11" font-weight="700" fill="#c05621">Notes (Chen Notation)</text>
+            <text x="1150" y="818" font-size="9.5" fill="#744210">• Double rect border = central entity</text>
+            <text x="1150" y="834" font-size="9.5" fill="#744210">• Underline (solid) = Primary Key</text>
+            <text x="1150" y="850" font-size="9.5" fill="#744210">• Underline (dashed) = Foreign Ref</text>
+            <text x="1150" y="866" font-size="9.5" fill="#744210">• Dashed ellipse = Multi-valued attr</text>
+            <text x="1150" y="882" font-size="9.5" fill="#744210">• Dashed line = Logical reference</text>
+            <text x="1150" y="898" font-size="9.5" fill="#744210">• 1, N, M = Cardinality on lines</text>
+
+        </svg>
+    </div>
+
+    <!-- ═══ LEGEND ═══ -->
+    <div class="legend">
+        <h3>Chen Notation Legend</h3>
+        <div class="leg">
+            <svg width="70" height="26">
+                <rect x="2" y="4" width="66" height="18" rx="3" fill="#1e3a5f" /><text x="35" y="17"
+                    text-anchor="middle" font-size="9" fill="#fff">ENTITY</text>
+            </svg>
+            Entity (Rectangle)
+        </div>
+        <div class="leg">
+            <svg width="70" height="26">
+                <rect x="2" y="4" width="66" height="18" rx="3" fill="#1e3a5f" stroke="#4299e1" stroke-width="2" />
+                <rect x="5" y="7" width="60" height="12" rx="1" fill="none" stroke="#fff" stroke-width="1"
+                    stroke-dasharray="2,2" /><text x="35" y="17" text-anchor="middle" font-size="8"
+                    fill="#fff">USER</text>
+            </svg>
+            Central Entity (Double border)
+        </div>
+        <div class="leg">
+            <svg width="80" height="30">
+                <polygon points="40,2 78,15 40,28 2,15" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" /><text
+                    x="40" y="19" text-anchor="middle" font-size="9" fill="#2b6cb0">RELATION</text>
+            </svg>
+            Relationship (Diamond)
+        </div>
+        <div class="leg">
+            <svg width="70" height="26">
+                <ellipse cx="35" cy="13" rx="32" ry="12" fill="#fff" stroke="#1e3a5f" stroke-width="1.3" /><text x="35"
+                    y="17" text-anchor="middle" font-size="9" fill="#1a202c">attribute</text>
+            </svg>
+            Attribute (Ellipse)
+        </div>
+        <div class="leg">
+            <svg width="70" height="26">
+                <ellipse cx="35" cy="13" rx="32" ry="12" fill="#fff" stroke="#1e3a5f" stroke-width="1.3"
+                    stroke-dasharray="4,2" /><text x="35" y="17" text-anchor="middle" font-size="9"
+                    fill="#1a202c">multi{ }</text>
+            </svg>
+            Multi-valued Attr (Dashed ellipse)
+        </div>
+        <div class="leg">
+            <svg width="60" height="20"><text x="10" y="14" font-size="11" fill="#1a202c">attr</text>
+                <line x1="8" y1="15" x2="42" y2="15" stroke="#1a202c" stroke-width="1.4" />
+            </svg>
+            Primary Key (Underline)
+        </div>
+        <div class="leg">
+            <svg width="40" height="14">
+                <line x1="2" y1="7" x2="38" y2="7" stroke="#4a5568" stroke-width="1.5" />
+            </svg>
+            Solid line = FK / embedded relationship
+        </div>
+        <div class="leg">
+            <svg width="40" height="14">
+                <line x1="2" y1="7" x2="38" y2="7" stroke="#a0aec0" stroke-width="1.4" stroke-dasharray="5,3" />
+            </svg>
+            Dashed line = Logical reference
+        </div>
+    </div>
+
+    <div class="foot">
+        <strong>AI Roadmap</strong> — Chen Notation ER Diagram &nbsp;|&nbsp; 9 Entities · 6 Relationships · All
+        Attributes &nbsp;|&nbsp; 2026-02-26
+    </div>
+</body>
+
+</html>

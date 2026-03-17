@@ -188,6 +188,7 @@ Days:
 ${days.map(d => `${d.date}: Topics — ${d.steps.map(s => s.title).join(', ')}`).join('\n')}`;
 
     try {
+        const model = getModel();
         const result = await model.generateContent({
             contents: [{ role: 'user', parts: [{ text: prompt }] }],
             generationConfig: { responseMimeType: 'application/json', temperature: 0.5 },

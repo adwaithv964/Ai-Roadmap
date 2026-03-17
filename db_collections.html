@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Database Collection Table – AI Roadmap</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c
+        }
+
+        /* ── Cover ── */
+        .cover {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #fff;
+            padding: 56px 40px;
+            text-align: center;
+        }
+
+        .cover h1 {
+            font-size: 2.2rem;
+            letter-spacing: .5px;
+            margin-bottom: 8px
+        }
+
+        .cover p {
+            font-size: 1rem;
+            opacity: .7;
+            margin-bottom: 24px
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 999px;
+            padding: 5px 18px;
+            font-size: .8rem;
+            margin: 3px
+        }
+
+        /* ── TOC ── */
+        .toc {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 28px 40px
+        }
+
+        .toc h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 14px;
+            letter-spacing: .04em
+        }
+
+        .toc ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .toc a {
+            display: inline-block;
+            padding: 5px 14px;
+            background: #edf2f7;
+            border-radius: 6px;
+            font-size: .82rem;
+            color: #2b6cb0;
+            text-decoration: none;
+            border: 1px solid #bee3f8;
+            transition: background .2s
+        }
+
+        .toc a:hover {
+            background: #bee3f8
+        }
+
+        /* ── Section ── */
+        .section {
+            padding: 40px 40px 0
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-left: 5px solid #3182ce;
+            padding-left: 14px;
+            margin-bottom: 8px
+        }
+
+        .section-header h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a202c
+        }
+
+        .badge {
+            font-size: .7rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+            letter-spacing: .04em
+        }
+
+        .badge.mongodb {
+            background: #c6f6d5;
+            color: #276749
+        }
+
+        .badge.firebase {
+            background: #fefcbf;
+            color: #7b341e
+        }
+
+        .badge.local {
+            background: #e9d8fd;
+            color: #553c9a
+        }
+
+        .section-sub {
+            font-size: .8rem;
+            color: #718096;
+            margin-bottom: 16px;
+            padding-left: 19px
+        }
+
+        /* ── Table ── */
+        .tbl-wrap {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .07)
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff
+        }
+
+        thead tr {
+            background: #2d3748;
+            color: #fff
+        }
+
+        thead th {
+            padding: 11px 16px;
+            text-align: left;
+            font-size: .78rem;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            font-weight: 700
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f7fafc
+        }
+
+        tbody tr:hover {
+            background: #ebf8ff
+        }
+
+        td {
+            padding: 10px 16px;
+            font-size: .84rem;
+            vertical-align: top;
+            border-bottom: 1px solid #e2e8f0
+        }
+
+        td:first-child {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+            color: #2b6cb0;
+            white-space: nowrap
+        }
+
+        td:nth-child(2) {
+            white-space: nowrap
+        }
+
+        .req {
+            color: #e53e3e;
+            font-weight: 700;
+            font-size: .7rem;
+            margin-left: 4px
+        }
+
+        .opt {
+            color: #38a169;
+            font-size: .7rem;
+            margin-left: 4px
+        }
+
+        .sub {
+            font-size: .75rem;
+            color: #718096;
+            margin-top: 3px
+        }
+
+        .enum {
+            font-size: .73rem;
+            color: #975a16;
+            background: #fffbeb;
+            border: 1px solid #f6e05e;
+            border-radius: 4px;
+            padding: 1px 5px;
+            display: inline-block;
+            margin-top: 2px
+        }
+
+        /* ── Sub-collection heading ── */
+        .sub-heading td {
+            background: #ebf4ff !important;
+            font-weight: 700;
+            font-size: .8rem;
+            color: #2c5282;
+            padding: 6px 16px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            border-top: 2px solid #bee3f8
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ COVER ══ -->
+    <div class="cover">
+        <h1>Database Collection Table</h1>
+        <p>AI Roadmap · All Collections · Field Name · Data Type · Description</p>
+        <div>
+            <span class="pill">MongoDB Atlas</span>
+            <span class="pill">Firebase Authentication</span>
+            <span class="pill">localStorage (Client)</span>
+        </div>
+    </div>
+
+    <!-- ══ TOC ══ -->
+    <div class="toc">
+        <h2>Collections Index</h2>
+        <ul>
+            <li><a href="#users">Users</a></li>
+            <li><a href="#roadmaps">Roadmaps</a></li>
+            <li><a href="#communityposts">CommunityPosts</a></li>
+            <li><a href="#studygroups">StudyGroups</a></li>
+            <li><a href="#feedback">Feedback</a></li>
+            <li><a href="#resourcevotes">ResourceVotes</a></li>
+            <li><a href="#suggestedresources">SuggestedResources</a></li>
+            <li><a href="#dailystats">DailyStats</a></li>
+            <li><a href="#firebase-auth">Firebase Auth</a></li>
+            <li><a href="#localstorage">localStorage</a></li>
+        </ul>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     1. USERS
+════════════════════════════════════════════════ -->
+    <div class="section" id="users">
+        <div class="section-header">
+            <h2>Collection: users</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Central user document. Stores auth reference, role, progress, gamification, adaptive
+            engine data, and notifications.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>firebaseUid</td>
+                        <td>String</td>
+                        <td>Unique Firebase UID — links MongoDB record to Firebase Authentication user<span
+                                class="req">required</span><br><span class="sub">Indexed, unique</span></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>User email address — must be unique across the collection<span class="req">required</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>role</td>
+                        <td>String (enum)</td>
+                        <td>Access control role for the user<br><span class="enum">user | super_admin | domain_expert |
+                                support</span><span class="opt">default: "user"</span></td>
+                    </tr>
+                    <tr>
+                        <td>isBanned</td>
+                        <td>Boolean</td>
+                        <td>If true, user cannot log in or access protected routes<span class="opt">default:
+                                false</span></td>
+                    </tr>
+
+                    <!-- Progress sub-doc -->
+                    <tr class="sub-heading">
+                        <td colspan="3">Embedded Sub-document: progress (Map)</td>
+                    </tr>
+                    <tr>
+                        <td>progress</td>
+                        <td>Map&lt;String, Map&lt;String, StepProgress&gt;&gt;</td>
+                        <td>Nested map: <code>domainId → stepId → StepProgress</code>. Tracks every learning step the
+                            user has completed<span class="opt">default: {}</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;progress.*.*.completed</td>
+                        <td>Boolean</td>
+                        <td>Whether the individual step has been marked complete<span class="opt">default: false</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;progress.*.*.completedDate</td>
+                        <td>String</td>
+                        <td>ISO date string (YYYY-MM-DD) of when the step was completed — used for the activity
+                            heatmap<span class="opt">default: null</span></td>
+                    </tr>
+
+                    <!-- Adaptive Engine -->
+                    <tr class="sub-heading">
+                        <td colspan="3">Adaptive Roadmap Engine Fields</td>
+                    </tr>
+                    <tr>
+                        <td>timeSpent</td>
+                        <td>Map&lt;String, Map&lt;String, Number&gt;&gt;</td>
+                        <td>Time spent (seconds) per module per domain: <code>domainId → moduleId → seconds</code>.
+                            Feeds into the AI adaptation engine<span class="opt">default: {}</span></td>
+                    </tr>
+                    <tr>
+                        <td>quizScores</td>
+                        <td>Map&lt;String, Map&lt;String, Number&gt;&gt;</td>
+                        <td>Quiz percentage scores per module per domain:
+                            <code>domainId → moduleId → score (0–100)</code>. &lt;60 triggers remedial module; &gt;90
+                            with low time triggers step-skip<span class="opt">default: {}</span></td>
+                    </tr>
+                    <tr>
+                        <td>roadmapAdaptations</td>
+                        <td>Map&lt;String, Object&gt;</td>
+                        <td>AI-generated adaptations per domain:
+                            <code>domainId → { addedModules[], skippedSteps[] }</code>. Persisted by the Adaptive Engine
+                            API<span class="opt">default: {}</span></td>
+                    </tr>
+
+                    <!-- Notifications -->
+                    <tr class="sub-heading">
+                        <td colspan="3">Embedded Array: notifications[]</td>
+                    </tr>
+                    <tr>
+                        <td>notifications</td>
+                        <td>Array&lt;NotificationDoc&gt;</td>
+                        <td>List of push notifications broadcast by admin to all users<span class="opt">default:
+                                []</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;notifications[].id</td>
+                        <td>Number</td>
+                        <td>Unique numeric ID generated via Date.now()<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;notifications[].title</td>
+                        <td>String</td>
+                        <td>Short notification title (e.g. "System Update")<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;notifications[].message</td>
+                        <td>String</td>
+                        <td>Full notification body text<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;notifications[].icon</td>
+                        <td>String</td>
+                        <td>Emoji or icon identifier displayed alongside the notification<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;notifications[].timestamp</td>
+                        <td>Date</td>
+                        <td>UTC datetime when the notification was created<span class="opt">default: Date.now</span>
+                        </td>
+                    </tr>
+
+                    <!-- Gamification -->
+                    <tr class="sub-heading">
+                        <td colspan="3">Gamification Fields</td>
+                    </tr>
+                    <tr>
+                        <td>xp</td>
+                        <td>Number</td>
+                        <td>Total experience points. Floored at 0; incremented on step completion, quiz pass, daily
+                            streak<span class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>level</td>
+                        <td>Number</td>
+                        <td>Calculated level (1–10) based on <code>xp</code> thresholds (Rookie → Champion).
+                            Recalculated on every XP award<span class="opt">default: 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>streak</td>
+                        <td>Number</td>
+                        <td>Consecutive days with at least one XP-earning activity. Reset to 1 if a day was missed<span
+                                class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>lastActivityDate</td>
+                        <td>String</td>
+                        <td>YYYY-MM-DD string of the last day XP was earned — used for streak calculations<span
+                                class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>xpHistory</td>
+                        <td>Array&lt;XPHistoryDoc&gt;</td>
+                        <td>Rolling log of the last 30 XP events. Rendered as the XP chart in the gamification HUD<span
+                                class="opt">default: []</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;xpHistory[].date</td>
+                        <td>String</td>
+                        <td>YYYY-MM-DD date of the XP event<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;xpHistory[].xpEarned</td>
+                        <td>Number</td>
+                        <td>Amount of XP earned in that event (may include streak bonus)<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;xpHistory[].reason</td>
+                        <td>String</td>
+                        <td>Human-readable label for the XP event (e.g. "Step completed")<span class="opt">default:
+                                ""</span></td>
+                    </tr>
+
+                    <!-- Timestamps -->
+                    <tr class="sub-heading">
+                        <td colspan="3">Auto-managed Timestamps</td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose timestamps — document creation datetime (UTC)<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose timestamps — last modification datetime (UTC)<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     2. ROADMAPS
+════════════════════════════════════════════════ -->
+    <div class="section" id="roadmaps">
+        <div class="section-header">
+            <h2>Collection: roadmaps</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Stores each AI learning roadmap managed by admins via the Roadmap Builder. Contains
+            react-flow graph data for the visual roadmap editor.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>String</td>
+                        <td>Display title of the roadmap (e.g. "Frontend Development"). Must be unique<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>slug</td>
+                        <td>String</td>
+                        <td>URL-safe identifier used as the <code>domainId</code> reference across the app (e.g.
+                            "frontend"). Must be unique<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>category</td>
+                        <td>String</td>
+                        <td>Grouping category for the roadmap (e.g. "Web", "AI/ML", "DevOps")<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>description</td>
+                        <td>String</td>
+                        <td>Short description shown on the domain selection screen<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>String</td>
+                        <td>Emoji or icon identifier displayed with the roadmap card<span class="req">required</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>String (enum)</td>
+                        <td>Publication status of the roadmap<br><span class="enum">Active | Beta | Deprecated | Coming
+                                Soon</span><span class="opt">default: "Active"</span></td>
+                    </tr>
+                    <tr>
+                        <td>graphData</td>
+                        <td>Object</td>
+                        <td>React Flow graph payload: <code>{ nodes: [], edges: [] }</code>. Null until the admin saves
+                            from the Roadmap Builder UI<span class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp — creation datetime<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp — last update datetime<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     3. COMMUNITYPOSTS
+════════════════════════════════════════════════ -->
+    <div class="section" id="communityposts">
+        <div class="section-header">
+            <h2>Collection: communityposts</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Stores all community feed posts including shared roadmap progress snapshots and open
+            posts. Also used to derive the leaderboard via aggregation.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>authorUid</td>
+                        <td>String</td>
+                        <td>Firebase UID of the post author — indexed for fast per-user queries<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>authorEmail</td>
+                        <td>String</td>
+                        <td>Email of the post author (displayed in UI, denormalized for read speed)<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>String (enum)</td>
+                        <td>Post category controlling how it is rendered in the feed<br><span class="enum">post |
+                                shared_roadmap</span><span class="opt">default: "post"</span></td>
+                    </tr>
+                    <tr>
+                        <td>content</td>
+                        <td>String</td>
+                        <td>Main text content of the post. Max 1000 characters<span class="req">required</span></td>
+                    </tr>
+
+                    <tr class="sub-heading">
+                        <td colspan="3">Roadmap Snapshot Fields (only for type = shared_roadmap)</td>
+                    </tr>
+                    <tr>
+                        <td>domainId</td>
+                        <td>String</td>
+                        <td>Slug of the domain being shared (e.g. "frontend")<span class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>domainTitle</td>
+                        <td>String</td>
+                        <td>Human-readable domain title (e.g. "Frontend Development")<span class="opt">default:
+                                null</span></td>
+                    </tr>
+                    <tr>
+                        <td>roadmapTitle</td>
+                        <td>String</td>
+                        <td>Specific roadmap title shared by the user<span class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>progressPercent</td>
+                        <td>Number</td>
+                        <td>Completion percentage at time of sharing (0–100). Also used for leaderboard aggregation<span
+                                class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>completedSteps</td>
+                        <td>Number</td>
+                        <td>Number of steps completed at time of sharing<span class="opt">default: null</span></td>
+                    </tr>
+                    <tr>
+                        <td>totalSteps</td>
+                        <td>Number</td>
+                        <td>Total number of steps in the roadmap at time of sharing<span class="opt">default:
+                                null</span></td>
+                    </tr>
+
+                    <tr class="sub-heading">
+                        <td colspan="3">Social Interaction Fields</td>
+                    </tr>
+                    <tr>
+                        <td>likes</td>
+                        <td>Array&lt;String&gt;</td>
+                        <td>Array of Firebase UIDs who liked this post. Toggle-based: like again to unlike<span
+                                class="opt">default: []</span></td>
+                    </tr>
+                    <tr>
+                        <td>comments</td>
+                        <td>Array&lt;CommentDoc&gt;</td>
+                        <td>Embedded array of comment sub-documents<span class="opt">default: []</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;comments[]._id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated ID for each comment (used for reference)</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;comments[].uid</td>
+                        <td>String</td>
+                        <td>Firebase UID of the comment author<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;comments[].email</td>
+                        <td>String</td>
+                        <td>Email of the comment author (denormalized)<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;comments[].text</td>
+                        <td>String</td>
+                        <td>Comment body text. Max 500 characters<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;comments[].createdAt</td>
+                        <td>Date</td>
+                        <td>UTC datetime the comment was created<span class="opt">default: Date.now</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp. Indexed for descending feed retrieval<span class="opt">auto</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     4. STUDYGROUPS
+════════════════════════════════════════════════ -->
+    <div class="section" id="studygroups">
+        <div class="section-header">
+            <h2>Collection: studygroups</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Stores collaborative study groups created by users in the Community Hub. Members can join
+            or leave; groups are scoped to a learning domain.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>String</td>
+                        <td>Display name of the study group. Max 80 chars, trimmed<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>description</td>
+                        <td>String</td>
+                        <td>Short description of the group's purpose. Max 500 chars<span class="req">required</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>domainId</td>
+                        <td>String</td>
+                        <td>Domain slug the group is focused on (indexed for fast per-domain queries)<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>domainTitle</td>
+                        <td>String</td>
+                        <td>Human-readable domain name (denormalized)<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>createdByUid</td>
+                        <td>String</td>
+                        <td>Firebase UID of the group creator<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>createdByEmail</td>
+                        <td>String</td>
+                        <td>Email of the group creator (denormalized)<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>maxMembers</td>
+                        <td>Number</td>
+                        <td>Maximum allowed member count (2–100)<span class="opt">default: 20</span></td>
+                    </tr>
+                    <tr>
+                        <td>isPublic</td>
+                        <td>Boolean</td>
+                        <td>If true, group appears in the public listing and any user can join<span class="opt">default:
+                                true</span></td>
+                    </tr>
+                    <tr>
+                        <td>tags</td>
+                        <td>Array&lt;String&gt;</td>
+                        <td>Optional topic tags for discoverability (e.g. ["react", "hooks"])<span class="opt">default:
+                                []</span></td>
+                    </tr>
+
+                    <tr class="sub-heading">
+                        <td colspan="3">Embedded Array: members[]</td>
+                    </tr>
+                    <tr>
+                        <td>members</td>
+                        <td>Array&lt;MemberDoc&gt;</td>
+                        <td>List of current group members. Join appends; leave splices<span class="opt">default:
+                                [creator]</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;members[].uid</td>
+                        <td>String</td>
+                        <td>Firebase UID of the member<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;members[].email</td>
+                        <td>String</td>
+                        <td>Member email address (denormalized)<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;members[].joinedAt</td>
+                        <td>Date</td>
+                        <td>UTC datetime the member joined the group<span class="opt">default: Date.now</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     5. FEEDBACK
+════════════════════════════════════════════════ -->
+    <div class="section" id="feedback">
+        <div class="section-header">
+            <h2>Collection: feedbacks</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Stores user-submitted feedback from the Feedback page. Admins can view and delete entries
+            from the Admin Panel.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>rating</td>
+                        <td>Number</td>
+                        <td>Star rating given by the user (range: 1–5)<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>category</td>
+                        <td>String (enum)</td>
+                        <td>Category of the feedback<br><span class="enum">general | bug | feature | ui</span><span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>feedback</td>
+                        <td>String</td>
+                        <td>Full text of the user's feedback message<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>Optional email address provided by the user for follow-up<span class="opt">optional</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>UTC datetime the feedback was submitted<span class="opt">default: Date.now</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     6. RESOURCEVOTES
+════════════════════════════════════════════════ -->
+    <div class="section" id="resourcevotes">
+        <div class="section-header">
+            <h2>Collection: resourcevotes</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Tracks helpful / not-helpful votes per learning resource URL per topic. One document per
+            (topic, resource URL) pair. Compound unique index prevents duplicate documents.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>topicKey</td>
+                        <td>String</td>
+                        <td>Slugified topic title (lowercase, underscores). Groups all votes for a topic. Indexed<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>resourceUrl</td>
+                        <td>String</td>
+                        <td>Full URL of the learning resource being voted on. Part of compound unique index with
+                            topicKey<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>resourceTitle</td>
+                        <td>String</td>
+                        <td>Human-readable resource title saved at vote time for display purposes<span
+                                class="opt">default: ""</span></td>
+                    </tr>
+                    <tr>
+                        <td>helpful</td>
+                        <td>Number</td>
+                        <td>Total count of "👍 helpful" votes. Incremented/decremented on toggle<span
+                                class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>notHelpful</td>
+                        <td>Number</td>
+                        <td>Total count of "👎 not helpful" votes. Incremented/decremented on toggle<span
+                                class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>voterUids</td>
+                        <td>Map&lt;String, String&gt;</td>
+                        <td>Map of <code>firebaseUid → "up" | "down"</code>. Prevents double-voting; enables vote
+                            toggling and switching<span class="opt">default: {}</span></td>
+                    </tr>
+                    <tr>
+                        <td>successRate</td>
+                        <td>Number (virtual)</td>
+                        <td>Computed as <code>helpful / (helpful + notHelpful)</code>. Virtual field, not stored in DB.
+                            Null if no votes exist</td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     7. SUGGESTEDRESOURCES
+════════════════════════════════════════════════ -->
+    <div class="section" id="suggestedresources">
+        <div class="section-header">
+            <h2>Collection: suggestedresources</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Queue of AI-suggested or user-submitted resources awaiting admin review. Admins approve
+            or reject entries from the Admin Resources panel.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>topic</td>
+                        <td>String</td>
+                        <td>The learning topic this resource belongs to. Indexed for fast pending queue retrieval<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>String</td>
+                        <td>Display title of the resource (e.g. "React Hooks Explained")<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>url</td>
+                        <td>String</td>
+                        <td>Full URL pointing to the resource<span class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>String (enum)</td>
+                        <td>Format / media type of the resource<br><span class="enum">video | article | course |
+                                documentation</span><span class="opt">default: "video"</span></td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>String (enum)</td>
+                        <td>Admin moderation status<br><span class="enum">pending | approved | rejected</span><span
+                                class="opt">default: "pending"</span></td>
+                    </tr>
+                    <tr>
+                        <td>suggestedByAI</td>
+                        <td>Boolean</td>
+                        <td>True if the resource was suggested by the Gemini AI Recommender; false if
+                            user-submitted<span class="opt">default: true</span></td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     8. DAILYSTATS
+════════════════════════════════════════════════ -->
+    <div class="section" id="dailystats">
+        <div class="section-header">
+            <h2>Collection: dailystats</h2>
+            <span class="badge mongodb">MongoDB</span>
+        </div>
+        <p class="section-sub">Rolling 30-day record of new user registrations and active user counts. Populated by the
+            Admin Dashboard Stats API via bulk-upsert on each request.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>ObjectId</td>
+                        <td>Auto-generated MongoDB primary key</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>String</td>
+                        <td>Calendar date in YYYY-MM-DD format. Unique — one document per calendar day<span
+                                class="req">required</span></td>
+                    </tr>
+                    <tr>
+                        <td>newUsers</td>
+                        <td>Number</td>
+                        <td>Count of new user registrations on this date (sourced from Firebase Auth metadata)<span
+                                class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>activeUsers</td>
+                        <td>Number</td>
+                        <td>Count of users who logged in on this date (reserved field — currently populated as 0, for
+                            future use)<span class="opt">default: 0</span></td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>Date</td>
+                        <td>Mongoose auto timestamp<span class="opt">auto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     9. FIREBASE AUTHENTICATION
+════════════════════════════════════════════════ -->
+    <div class="section" id="firebase-auth">
+        <div class="section-header">
+            <h2>Firebase Authentication</h2>
+            <span class="badge firebase">Firebase</span>
+        </div>
+        <p class="section-sub">Managed by Firebase Auth. The app uses Email/Password and Google OAuth sign-in. Firebase
+            stores these fields internally — the app only reads them via the SDK.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>uid</td>
+                        <td>String</td>
+                        <td>Firebase-generated unique user identifier. Used as the primary link between Firebase Auth
+                            and MongoDB <code>users.firebaseUid</code></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>Verified email address of the user (Email/Password or Google account email)</td>
+                    </tr>
+                    <tr>
+                        <td>displayName</td>
+                        <td>String</td>
+                        <td>Display name — populated automatically for Google OAuth users; null for email/password users
+                            unless set</td>
+                    </tr>
+                    <tr>
+                        <td>photoURL</td>
+                        <td>String</td>
+                        <td>Avatar/profile picture URL. Populated by Google OAuth; null for email/password users</td>
+                    </tr>
+                    <tr>
+                        <td>emailVerified</td>
+                        <td>Boolean</td>
+                        <td>True if the user has verified their email address</td>
+                    </tr>
+                    <tr>
+                        <td>providerData</td>
+                        <td>Array&lt;Object&gt;</td>
+                        <td>List of auth providers linked to this account (e.g. google.com, password)</td>
+                    </tr>
+                    <tr>
+                        <td>metadata.creationTime</td>
+                        <td>String (RFC 2822)</td>
+                        <td>UTC datetime string when the Firebase account was created — used by the Admin Dashboard to
+                            calculate new-user registration counts</td>
+                    </tr>
+                    <tr>
+                        <td>metadata.lastSignInTime</td>
+                        <td>String (RFC 2822)</td>
+                        <td>UTC datetime string of the user's most recent sign-in — used to compute the "Active Users
+                            (last 30 days)" dashboard metric</td>
+                    </tr>
+                    <tr>
+                        <td>idToken (runtime)</td>
+                        <td>String (JWT)</td>
+                        <td>Short-lived JWT bearer token sent in the <code>Authorization</code> header of every API
+                            request. Verified by the backend <code>authMiddleware</code> and admin <code>isAdmin</code>
+                            middleware via Firebase Admin SDK</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+     10. LOCALSTORAGE
+════════════════════════════════════════════════ -->
+    <div class="section" id="localstorage">
+        <div class="section-header">
+            <h2>localStorage (Browser Client)</h2>
+            <span class="badge local">Client-Side</span>
+        </div>
+        <p class="section-sub">Browser's localStorage is used minimally — only for persisting the admin authentication
+            flag across page reloads. No user data or tokens are stored here.</p>
+        <div class="tbl-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name (Key)</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>adminAuthenticated</td>
+                        <td>String</td>
+                        <td>Stores the string <code>"true"</code> after a successful admin login. Read on every page
+                            load (<code>App.jsx</code>) to decide whether to render the Admin Panel or redirect to the
+                            Admin Login page. Cleared on admin logout.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <div style="background:#2d3748;color:#e2e8f0;padding:28px 40px;margin-top:20px;font-size:.82rem;">
+        <strong>AI Roadmap</strong> — Database Collection Reference &nbsp;|&nbsp;
+        MongoDB (8 collections) &nbsp;·&nbsp; Firebase Authentication &nbsp;·&nbsp; localStorage (1 key)
+        <br><span style="opacity:.5">Generated: 2026-02-26</span>
+    </div>
+
+</body>
+
+</html>

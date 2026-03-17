@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>ER Diagram – AI Roadmap</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #fff;
+            padding: 48px 40px;
+            text-align: center
+        }
+
+        .cover h1 {
+            font-size: 2.1rem;
+            margin-bottom: 8px
+        }
+
+        .cover p {
+            opacity: .7;
+            margin-bottom: 20px
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            padding: 4px 16px;
+            font-size: .78rem;
+            margin: 3px
+        }
+
+        .canvas-wrap {
+            overflow-x: auto;
+            padding: 24px;
+            background: #fff;
+            margin: 0
+        }
+
+        svg.er {
+            display: block;
+            min-width: 1220px
+        }
+
+        .legend {
+            padding: 20px 36px 32px;
+            background: #fff;
+            border-top: 2px solid #e2e8f0
+        }
+
+        .legend h3 {
+            font-size: .9rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px
+        }
+
+        .leg-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: .78rem;
+            color: #4a5568;
+            align-items: center
+        }
+
+        .swatch {
+            width: 32px;
+            height: 3px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px
+        }
+
+        .rel-table {
+            padding: 20px 36px 40px;
+            background: #f7fafc;
+            border-top: 1px solid #e2e8f0
+        }
+
+        .rel-table h3 {
+            font-size: .9rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .07)
+        }
+
+        th {
+            background: #2d3748;
+            color: #fff;
+            padding: 9px 14px;
+            font-size: .76rem;
+            text-align: left;
+            letter-spacing: .05em
+        }
+
+        td {
+            padding: 8px 14px;
+            font-size: .8rem;
+            border-bottom: 1px solid #e2e8f0
+        }
+
+        tr:last-child td {
+            border-bottom: none
+        }
+
+        tr:nth-child(even) td {
+            background: #f7fafc
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cover">
+        <h1>Entity Relationship Diagram</h1>
+        <p>AI Roadmap · All Collections · Complete Schema Relationships</p>
+        <span class="pill">MongoDB Atlas — 8 Collections</span>
+        <span class="pill">Firebase Authentication</span>
+    </div>
+
+    <div class="canvas-wrap">
+        <svg class="er" viewBox="0 0 1220 710" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- Arrow markers -->
+                <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0,8 3,0 6" fill="#4a5568" />
+                </marker>
+                <marker id="arrd" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0,8 3,0 6" fill="#a0aec0" />
+                </marker>
+                <!-- FK / PK label styles via text -->
+            </defs>
+
+            <!-- ═══ RELATIONSHIP LINES (draw first so boxes render on top) ═══ -->
+
+            <!-- 1. FirebaseAuth 1:1 User -->
+            <path d="M 256,117 C 285,117 285,370 306,370" stroke="#2b6cb0" stroke-width="1.8" fill="none"
+                marker-end="url(#arr)" />
+            <text x="272" y="235" font-size="9" fill="#2b6cb0" transform="rotate(-60,272,235)">1 : 1</text>
+
+            <!-- 2. User 1:M CommunityPost (authorUid) -->
+            <path d="M 306,420 L 266,390" stroke="#2b6cb0" stroke-width="1.8" fill="none" marker-end="url(#arr)" />
+            <text x="270" y="400" font-size="9" fill="#2b6cb0">1 : M</text>
+
+            <!-- 3. User top — Roadmap bottom (progress references, dashed) -->
+            <path d="M 432,270 L 432,242" stroke="#a0aec0" stroke-width="1.5" stroke-dasharray="5,3" fill="none"
+                marker-end="url(#arrd)" />
+            <text x="436" y="258" font-size="9" fill="#a0aec0">ref</text>
+
+            <!-- 4. User M:M StudyGroup (members) -->
+            <path d="M 562,430 C 740,430 740,340 936,340" stroke="#2b6cb0" stroke-width="1.8" fill="none"
+                marker-end="url(#arr)" />
+            <text x="730" y="425" font-size="9" fill="#2b6cb0">M : M</text>
+
+            <!-- 5. User M:M ResourceVote (voterUids) -->
+            <path d="M 562,520 L 620,540" stroke="#2b6cb0" stroke-width="1.8" fill="none" marker-end="url(#arr)" />
+            <text x="574" y="538" font-size="9" fill="#2b6cb0">M : M</text>
+
+            <!-- 6. User 1:M SuggestedResource (admin reviews - dashed) -->
+            <path d="M 562,310 L 620,140" stroke="#a0aec0" stroke-width="1.5" stroke-dasharray="5,3" fill="none"
+                marker-end="url(#arrd)" />
+            <text x="590" y="210" font-size="9" fill="#a0aec0" transform="rotate(-55,590,210)">reviews</text>
+
+            <!-- 7. CommunityPost → Roadmap (domainId → slug, dashed) -->
+            <path d="M 143,224 L 143,210 L 306,210" stroke="#a0aec0" stroke-width="1.4" stroke-dasharray="4,3"
+                fill="none" marker-end="url(#arrd)" />
+            <text x="200" y="205" font-size="9" fill="#a0aec0">domainId ref</text>
+
+            <!-- 8. StudyGroup → Roadmap (domainId → slug, dashed) -->
+            <path d="M 1060,198 L 1060,16 L 432,16 L 432,30" stroke="#a0aec0" stroke-width="1.4" stroke-dasharray="4,3"
+                fill="none" marker-end="url(#arrd)" />
+            <text x="720" y="12" font-size="9" fill="#a0aec0">domainId ref</text>
+
+            <!-- 9. DailyStat ← aggregates from FirebaseAuth (via Firebase Admin SDK, dashed) -->
+            <path d="M 936,99 L 936,10 L 137,10 L 137,30" stroke="#a0aec0" stroke-width="1.4" stroke-dasharray="4,3"
+                fill="none" marker-end="url(#arrd)" />
+            <text x="510" y="8" font-size="9" fill="#a0aec0">aggregates new/active users</text>
+
+            <!-- 10. User left - Feedback (email ref, dashed) -->
+            <path d="M 306,570 L 246,600" stroke="#a0aec0" stroke-width="1.4" stroke-dasharray="4,3" fill="none"
+                marker-end="url(#arrd)" />
+            <text x="245" y="577" font-size="9" fill="#a0aec0">email</text>
+
+            <!-- ═══ ENTITY: FirebaseAuth (External) ═══ -->
+            <!-- x=20 y=30 w=235 rows=8 h=30+8*18=174 -->
+            <g id="firebase-auth">
+                <rect x="20" y="30" width="235" height="174" rx="5" fill="#fff" stroke="#b45309" stroke-width="1.8" />
+                <rect x="20" y="30" width="235" height="28" rx="5" fill="#b45309" />
+                <rect x="20" y="44" width="235" height="14" fill="#b45309" />
+                <text x="137" y="49" text-anchor="middle" fill="#fff" font-size="11" font-weight="700"
+                    font-family="Segoe UI">FirebaseAuth (External)</text>
+                <line x1="20" y1="58" x2="255" y2="58" stroke="#b45309" stroke-width="1.2" />
+                <!-- fields y = 58 + row*18 + 13 -->
+                <text x="28" y="71" font-size="10" font-family="Courier New" fill="#1a202c">uid</text> <text x="155"
+                    y="71" font-size="9.5" fill="#718096">: String</text> <text x="247" y="71" font-size="8.5"
+                    fill="#b45309" font-weight="700" text-anchor="end">PK</text>
+                <text x="28" y="89" font-size="10" font-family="Courier New" fill="#1a202c">email</text> <text x="155"
+                    y="89" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="107" font-size="10" font-family="Courier New" fill="#1a202c">displayName</text> <text
+                    x="155" y="107" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="125" font-size="10" font-family="Courier New" fill="#1a202c">photoURL</text> <text
+                    x="155" y="125" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="143" font-size="10" font-family="Courier New" fill="#1a202c">emailVerified</text> <text
+                    x="155" y="143" font-size="9.5" fill="#718096">: Boolean</text>
+                <text x="28" y="161" font-size="10" font-family="Courier New" fill="#1a202c">creationTime</text> <text
+                    x="155" y="161" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="179" font-size="10" font-family="Courier New" fill="#1a202c">lastSignInTime</text> <text
+                    x="155" y="179" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="197" font-size="10" font-family="Courier New" fill="#1a202c">idToken</text> <text
+                    x="155" y="197" font-size="9.5" fill="#718096">: JWT</text>
+            </g>
+
+            <!-- ═══ ENTITY: CommunityPost ═══ -->
+            <!-- x=20 y=226 w=245 rows=14 h=30+14*18=282 -->
+            <g id="community-post">
+                <rect x="20" y="226" width="245" height="282" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="20" y="226" width="245" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="20" y="240" width="245" height="14" fill="#1e3a5f" />
+                <text x="142" y="245" text-anchor="middle" fill="#fff" font-size="11"
+                    font-weight="700">CommunityPost</text>
+                <line x1="20" y1="254" x2="265" y2="254" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="28" y="267" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="155"
+                    y="267" font-size="9.5" fill="#718096">: ObjectId</text> <text x="257" y="267" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="28" y="285" font-size="10" font-family="Courier New" fill="#1a202c">authorUid</text> <text
+                    x="155" y="285" font-size="9.5" fill="#718096">: String</text> <text x="257" y="285" font-size="8.5"
+                    fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="28" y="303" font-size="10" font-family="Courier New" fill="#1a202c">authorEmail</text> <text
+                    x="155" y="303" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="321" font-size="10" font-family="Courier New" fill="#1a202c">type</text> <text x="155"
+                    y="321" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="28" y="339" font-size="10" font-family="Courier New" fill="#1a202c">content</text> <text
+                    x="155" y="339" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="357" font-size="10" font-family="Courier New" fill="#1a202c">domainId</text> <text
+                    x="155" y="357" font-size="9.5" fill="#718096">: String</text> <text x="257" y="357" font-size="8.5"
+                    fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="28" y="375" font-size="10" font-family="Courier New" fill="#1a202c">domainTitle</text> <text
+                    x="155" y="375" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="393" font-size="10" font-family="Courier New" fill="#1a202c">progressPercent</text>
+                <text x="155" y="393" font-size="9.5" fill="#718096">: Number</text>
+                <text x="28" y="411" font-size="10" font-family="Courier New" fill="#1a202c">completedSteps</text> <text
+                    x="155" y="411" font-size="9.5" fill="#718096">: Number</text>
+                <text x="28" y="429" font-size="10" font-family="Courier New" fill="#1a202c">totalSteps</text> <text
+                    x="155" y="429" font-size="9.5" fill="#718096">: Number</text>
+                <text x="28" y="447" font-size="10" font-family="Courier New" fill="#1a202c">likes</text> <text x="155"
+                    y="447" font-size="9.5" fill="#718096">: [String]</text>
+                <text x="28" y="465" font-size="10" font-family="Courier New" fill="#1a202c">comments</text> <text
+                    x="155" y="465" font-size="9.5" fill="#718096">: [CommentDoc]</text>
+                <text x="28" y="483" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="155" y="483" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: Feedback ═══ -->
+            <!-- x=20 y=530 w=225 rows=6 h=138 -->
+            <g id="feedback">
+                <rect x="20" y="530" width="225" height="138" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="20" y="530" width="225" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="20" y="544" width="225" height="14" fill="#1e3a5f" />
+                <text x="132" y="549" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">Feedback</text>
+                <line x1="20" y1="558" x2="245" y2="558" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="28" y="571" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="130"
+                    y="571" font-size="9.5" fill="#718096">: ObjectId</text> <text x="237" y="571" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="28" y="589" font-size="10" font-family="Courier New" fill="#1a202c">rating</text> <text x="130"
+                    y="589" font-size="9.5" fill="#718096">: Number (1–5)</text>
+                <text x="28" y="607" font-size="10" font-family="Courier New" fill="#1a202c">category</text> <text
+                    x="130" y="607" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="28" y="625" font-size="10" font-family="Courier New" fill="#1a202c">feedback</text> <text
+                    x="130" y="625" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="643" font-size="10" font-family="Courier New" fill="#1a202c">email</text> <text x="130"
+                    y="643" font-size="9.5" fill="#718096">: String</text>
+                <text x="28" y="661" font-size="10" font-family="Courier New" fill="#1a202c">createdAt</text> <text
+                    x="130" y="661" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: Roadmap ═══ -->
+            <!-- x=306 y=30 w=250 rows=10 h=30+10*18=210 -->
+            <g id="roadmap">
+                <rect x="306" y="30" width="250" height="210" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="306" y="30" width="250" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="306" y="44" width="250" height="14" fill="#1e3a5f" />
+                <text x="431" y="49" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">Roadmap</text>
+                <line x1="306" y1="58" x2="556" y2="58" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="314" y="71" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="420"
+                    y="71" font-size="9.5" fill="#718096">: ObjectId</text> <text x="548" y="71" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="314" y="89" font-size="10" font-family="Courier New" fill="#1a202c">title</text> <text x="420"
+                    y="89" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="107" font-size="10" font-family="Courier New" fill="#1a202c">slug</text> <text x="420"
+                    y="107" font-size="9.5" fill="#718096">: String</text> <text x="548" y="107" font-size="8.5"
+                    fill="#38a169" font-weight="700" text-anchor="end">UK</text>
+                <text x="314" y="125" font-size="10" font-family="Courier New" fill="#1a202c">category</text> <text
+                    x="420" y="125" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="143" font-size="10" font-family="Courier New" fill="#1a202c">description</text> <text
+                    x="420" y="143" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="161" font-size="10" font-family="Courier New" fill="#1a202c">icon</text> <text x="420"
+                    y="161" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="179" font-size="10" font-family="Courier New" fill="#1a202c">status</text> <text
+                    x="420" y="179" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="314" y="197" font-size="10" font-family="Courier New" fill="#1a202c">graphData</text> <text
+                    x="420" y="197" font-size="9.5" fill="#718096">: Object</text>
+                <text x="314" y="215" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="420" y="215" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: User ═══ -->
+            <!-- x=306 y=270 w=255 rows=17 h=30+17*18=336 -->
+            <g id="user">
+                <rect x="306" y="270" width="255" height="336" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="2.2" />
+                <rect x="306" y="270" width="255" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="306" y="284" width="255" height="14" fill="#1e3a5f" />
+                <text x="433" y="289" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="700">User</text>
+                <line x1="306" y1="298" x2="561" y2="298" stroke="#1e3a5f" stroke-width="1.2" />
+                <!-- fields start y=298+13=311 -->
+                <text x="314" y="311" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="440"
+                    y="311" font-size="9.5" fill="#718096">: ObjectId</text> <text x="553" y="311" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="314" y="329" font-size="10" font-family="Courier New" fill="#1a202c">firebaseUid</text> <text
+                    x="440" y="329" font-size="9.5" fill="#718096">: String</text> <text x="553" y="329" font-size="8.5"
+                    fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="314" y="347" font-size="10" font-family="Courier New" fill="#1a202c">email</text> <text x="440"
+                    y="347" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="365" font-size="10" font-family="Courier New" fill="#1a202c">role</text> <text x="440"
+                    y="365" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="314" y="383" font-size="10" font-family="Courier New" fill="#1a202c">isBanned</text> <text
+                    x="440" y="383" font-size="9.5" fill="#718096">: Boolean</text>
+                <line x1="314" y1="390" x2="553" y2="390" stroke="#e2e8f0" stroke-width="1" />
+                <text x="314" y="401" font-size="10" font-family="Courier New" fill="#1a202c">progress</text> <text
+                    x="440" y="401" font-size="9.5" fill="#718096">: Map&lt;domain,steps&gt;</text>
+                <text x="314" y="419" font-size="10" font-family="Courier New" fill="#1a202c">timeSpent</text> <text
+                    x="440" y="419" font-size="9.5" fill="#718096">: Map&lt;domain,secs&gt;</text>
+                <text x="314" y="437" font-size="10" font-family="Courier New" fill="#1a202c">quizScores</text> <text
+                    x="440" y="437" font-size="9.5" fill="#718096">: Map&lt;domain,score&gt;</text>
+                <text x="314" y="455" font-size="10" font-family="Courier New" fill="#1a202c">roadmapAdaptations</text>
+                <text x="440" y="455" font-size="9.5" fill="#718096">: Map</text>
+                <text x="314" y="473" font-size="10" font-family="Courier New" fill="#1a202c">notifications</text> <text
+                    x="440" y="473" font-size="9.5" fill="#718096">: [Notification]</text>
+                <line x1="314" y1="480" x2="553" y2="480" stroke="#e2e8f0" stroke-width="1" />
+                <text x="314" y="491" font-size="10" font-family="Courier New" fill="#1a202c">xp</text> <text x="440"
+                    y="491" font-size="9.5" fill="#718096">: Number</text>
+                <text x="314" y="509" font-size="10" font-family="Courier New" fill="#1a202c">level</text> <text x="440"
+                    y="509" font-size="9.5" fill="#718096">: Number</text>
+                <text x="314" y="527" font-size="10" font-family="Courier New" fill="#1a202c">streak</text> <text
+                    x="440" y="527" font-size="9.5" fill="#718096">: Number</text>
+                <text x="314" y="545" font-size="10" font-family="Courier New" fill="#1a202c">lastActivityDate</text>
+                <text x="440" y="545" font-size="9.5" fill="#718096">: String</text>
+                <text x="314" y="563" font-size="10" font-family="Courier New" fill="#1a202c">xpHistory</text> <text
+                    x="440" y="563" font-size="9.5" fill="#718096">: [XPHistoryDoc]</text>
+                <text x="314" y="581" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="440" y="581" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: SuggestedResource ═══ -->
+            <!-- x=622 y=30 w=240 rows=9 h=30+9*18=192 -->
+            <g id="suggested-resource">
+                <rect x="622" y="30" width="245" height="192" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="622" y="30" width="245" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="622" y="44" width="245" height="14" fill="#1e3a5f" />
+                <text x="744" y="49" text-anchor="middle" fill="#fff" font-size="11"
+                    font-weight="700">SuggestedResource</text>
+                <line x1="622" y1="58" x2="867" y2="58" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="630" y="71" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="756"
+                    y="71" font-size="9.5" fill="#718096">: ObjectId</text> <text x="859" y="71" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="630" y="89" font-size="10" font-family="Courier New" fill="#1a202c">topic</text> <text x="756"
+                    y="89" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="107" font-size="10" font-family="Courier New" fill="#1a202c">title</text> <text x="756"
+                    y="107" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="125" font-size="10" font-family="Courier New" fill="#1a202c">url</text> <text x="756"
+                    y="125" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="143" font-size="10" font-family="Courier New" fill="#1a202c">type</text> <text x="756"
+                    y="143" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="630" y="161" font-size="10" font-family="Courier New" fill="#1a202c">status</text> <text
+                    x="756" y="161" font-size="9.5" fill="#718096">: String (enum)</text>
+                <text x="630" y="179" font-size="10" font-family="Courier New" fill="#1a202c">suggestedByAI</text> <text
+                    x="756" y="179" font-size="9.5" fill="#718096">: Boolean</text>
+                <text x="630" y="197" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="756" y="197" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: ResourceVote ═══ -->
+            <!-- x=622 y=445 w=245 rows=10 h=30+10*18=210 -->
+            <g id="resource-vote">
+                <rect x="622" y="445" width="245" height="210" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="622" y="445" width="245" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="622" y="459" width="245" height="14" fill="#1e3a5f" />
+                <text x="744" y="464" text-anchor="middle" fill="#fff" font-size="11"
+                    font-weight="700">ResourceVote</text>
+                <line x1="622" y1="473" x2="867" y2="473" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="630" y="486" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="750"
+                    y="486" font-size="9.5" fill="#718096">: ObjectId</text> <text x="859" y="486" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="630" y="504" font-size="10" font-family="Courier New" fill="#1a202c">topicKey</text> <text
+                    x="750" y="504" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="522" font-size="10" font-family="Courier New" fill="#1a202c">resourceUrl</text> <text
+                    x="750" y="522" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="540" font-size="10" font-family="Courier New" fill="#1a202c">resourceTitle</text> <text
+                    x="750" y="540" font-size="9.5" fill="#718096">: String</text>
+                <text x="630" y="558" font-size="10" font-family="Courier New" fill="#1a202c">helpful</text> <text
+                    x="750" y="558" font-size="9.5" fill="#718096">: Number</text>
+                <text x="630" y="576" font-size="10" font-family="Courier New" fill="#1a202c">notHelpful</text> <text
+                    x="750" y="576" font-size="9.5" fill="#718096">: Number</text>
+                <text x="630" y="594" font-size="10" font-family="Courier New" fill="#1a202c">voterUids</text> <text
+                    x="750" y="594" font-size="9.5" fill="#718096">: Map&lt;uid,vote&gt;</text> <text x="859" y="594"
+                    font-size="8.5" fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="630" y="612" font-size="10" font-family="Courier New" fill="#1a202c">successRate</text> <text
+                    x="750" y="612" font-size="9.5" fill="#718096">: Number (virtual)</text>
+                <text x="630" y="630" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="750" y="630" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: DailyStat ═══ -->
+            <!-- x=936 y=30 w=230 rows=6 h=138 -->
+            <g id="daily-stat">
+                <rect x="936" y="30" width="228" height="138" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="936" y="30" width="228" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="936" y="44" width="228" height="14" fill="#1e3a5f" />
+                <text x="1050" y="49" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">DailyStat</text>
+                <line x1="936" y1="58" x2="1164" y2="58" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="944" y="71" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="1055"
+                    y="71" font-size="9.5" fill="#718096">: ObjectId</text> <text x="1156" y="71" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="944" y="89" font-size="10" font-family="Courier New" fill="#1a202c">date</text> <text x="1055"
+                    y="89" font-size="9.5" fill="#718096">: String (YYYY-MM-DD)</text>
+                <text x="944" y="107" font-size="10" font-family="Courier New" fill="#1a202c">newUsers</text> <text
+                    x="1055" y="107" font-size="9.5" fill="#718096">: Number</text>
+                <text x="944" y="125" font-size="10" font-family="Courier New" fill="#1a202c">activeUsers</text> <text
+                    x="1055" y="125" font-size="9.5" fill="#718096">: Number</text>
+                <text x="944" y="143" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="1055" y="143" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ ENTITY: StudyGroup ═══ -->
+            <!-- x=936 y=198 w=250 rows=13 h=30+13*18=264 -->
+            <g id="study-group">
+                <rect x="936" y="198" width="250" height="264" rx="5" fill="#fff" stroke="#1e3a5f" stroke-width="1.8" />
+                <rect x="936" y="198" width="250" height="28" rx="5" fill="#1e3a5f" />
+                <rect x="936" y="212" width="250" height="14" fill="#1e3a5f" />
+                <text x="1061" y="217" text-anchor="middle" fill="#fff" font-size="11"
+                    font-weight="700">StudyGroup</text>
+                <line x1="936" y1="226" x2="1186" y2="226" stroke="#1e3a5f" stroke-width="1.2" />
+                <text x="944" y="239" font-size="10" font-family="Courier New" fill="#1a202c">_id</text> <text x="1065"
+                    y="239" font-size="9.5" fill="#718096">: ObjectId</text> <text x="1178" y="239" font-size="8.5"
+                    fill="#2b6cb0" font-weight="700" text-anchor="end">PK</text>
+                <text x="944" y="257" font-size="10" font-family="Courier New" fill="#1a202c">name</text> <text x="1065"
+                    y="257" font-size="9.5" fill="#718096">: String</text>
+                <text x="944" y="275" font-size="10" font-family="Courier New" fill="#1a202c">description</text> <text
+                    x="1065" y="275" font-size="9.5" fill="#718096">: String</text>
+                <text x="944" y="293" font-size="10" font-family="Courier New" fill="#1a202c">domainId</text> <text
+                    x="1065" y="293" font-size="9.5" fill="#718096">: String</text> <text x="1178" y="293"
+                    font-size="8.5" fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="944" y="311" font-size="10" font-family="Courier New" fill="#1a202c">domainTitle</text> <text
+                    x="1065" y="311" font-size="9.5" fill="#718096">: String</text>
+                <text x="944" y="329" font-size="10" font-family="Courier New" fill="#1a202c">createdByUid</text> <text
+                    x="1065" y="329" font-size="9.5" fill="#718096">: String</text> <text x="1178" y="329"
+                    font-size="8.5" fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="944" y="347" font-size="10" font-family="Courier New" fill="#1a202c">createdByEmail</text>
+                <text x="1065" y="347" font-size="9.5" fill="#718096">: String</text>
+                <text x="944" y="365" font-size="10" font-family="Courier New" fill="#1a202c">members</text> <text
+                    x="1065" y="365" font-size="9.5" fill="#718096">: [MemberDoc]</text> <text x="1178" y="365"
+                    font-size="8.5" fill="#e53e3e" font-weight="700" text-anchor="end">FK</text>
+                <text x="944" y="383" font-size="10" font-family="Courier New" fill="#1a202c">maxMembers</text> <text
+                    x="1065" y="383" font-size="9.5" fill="#718096">: Number</text>
+                <text x="944" y="401" font-size="10" font-family="Courier New" fill="#1a202c">isPublic</text> <text
+                    x="1065" y="401" font-size="9.5" fill="#718096">: Boolean</text>
+                <text x="944" y="419" font-size="10" font-family="Courier New" fill="#1a202c">tags</text> <text x="1065"
+                    y="419" font-size="9.5" fill="#718096">: [String]</text>
+                <text x="944" y="437" font-size="10" font-family="Courier New" fill="#1a202c">createdAt /
+                    updatedAt</text> <text x="1065" y="437" font-size="9.5" fill="#718096">: Date</text>
+            </g>
+
+            <!-- ═══ CARDINALITY LABELS ═══ -->
+            <!-- 1. FirebaseAuth—User -->
+            <text x="248" y="112" font-size="10" fill="#2b6cb0" font-weight="700">1</text>
+            <text x="295" y="365" font-size="10" fill="#2b6cb0" font-weight="700">1</text>
+            <!-- 2. User—CommunityPost -->
+            <text x="298" y="418" font-size="10" fill="#2b6cb0" font-weight="700">1</text>
+            <text x="246" y="382" font-size="10" fill="#2b6cb0" font-weight="700">M</text>
+            <!-- 4. User—StudyGroup -->
+            <text x="564" y="425" font-size="10" fill="#2b6cb0" font-weight="700">M</text>
+            <text x="928" y="333" font-size="10" fill="#2b6cb0" font-weight="700">M</text>
+            <!-- 5. User—ResourceVote -->
+            <text x="554" y="518" font-size="10" fill="#2b6cb0" font-weight="700">M</text>
+            <text x="610" y="538" font-size="10" fill="#2b6cb0" font-weight="700">M</text>
+
+        </svg>
+    </div>
+
+    <!-- ═══ LEGEND ═══ -->
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="leg-row">
+            <span><span class="swatch" style="background:#2b6cb0;height:2px"></span>Solid line — Direct FK relationship
+                (enforced)</span>
+            <span><span class="swatch"
+                    style="background:#a0aec0;border-top:2px dashed #a0aec0;height:0"></span>&nbsp;Dashed line — Logical
+                reference (not enforced FK)</span>
+            <span style="color:#2b6cb0;font-weight:700;font-size:.85rem">PK</span>&nbsp;Primary Key&nbsp;&nbsp;
+            <span style="color:#e53e3e;font-weight:700;font-size:.85rem">FK</span>&nbsp;Foreign Key&nbsp;&nbsp;
+            <span style="color:#38a169;font-weight:700;font-size:.85rem">UK</span>&nbsp;Unique Key&nbsp;&nbsp;
+            <span
+                style="background:#b45309;color:#fff;padding:2px 7px;border-radius:4px;font-size:.75rem">Firebase</span>&nbsp;External
+            Service&nbsp;&nbsp;
+            <span
+                style="background:#1e3a5f;color:#fff;padding:2px 7px;border-radius:4px;font-size:.75rem">MongoDB</span>&nbsp;MongoDB
+            Collection
+        </div>
+    </div>
+
+    <!-- ═══ RELATIONSHIP SUMMARY TABLE ═══ -->
+    <div class="rel-table">
+        <h3>Relationship Summary</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>From Entity</th>
+                    <th>Field</th>
+                    <th>To Entity</th>
+                    <th>Field</th>
+                    <th>Cardinality</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>User</td>
+                    <td>firebaseUid</td>
+                    <td>FirebaseAuth</td>
+                    <td>uid</td>
+                    <td>1 : 1</td>
+                    <td>Direct FK</td>
+                </tr>
+                <tr>
+                    <td>CommunityPost</td>
+                    <td>authorUid</td>
+                    <td>User</td>
+                    <td>firebaseUid</td>
+                    <td>M : 1</td>
+                    <td>Direct FK</td>
+                </tr>
+                <tr>
+                    <td>StudyGroup</td>
+                    <td>createdByUid</td>
+                    <td>User</td>
+                    <td>firebaseUid</td>
+                    <td>M : 1</td>
+                    <td>Direct FK</td>
+                </tr>
+                <tr>
+                    <td>StudyGroup</td>
+                    <td>members[].uid</td>
+                    <td>User</td>
+                    <td>firebaseUid</td>
+                    <td>M : M</td>
+                    <td>Embedded FK Array</td>
+                </tr>
+                <tr>
+                    <td>ResourceVote</td>
+                    <td>voterUids (Map keys)</td>
+                    <td>User</td>
+                    <td>firebaseUid</td>
+                    <td>M : M</td>
+                    <td>Map-Key FK</td>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td>progress (Map keys)</td>
+                    <td>Roadmap</td>
+                    <td>slug</td>
+                    <td>M : 1</td>
+                    <td>Logical reference</td>
+                </tr>
+                <tr>
+                    <td>CommunityPost</td>
+                    <td>domainId</td>
+                    <td>Roadmap</td>
+                    <td>slug</td>
+                    <td>M : 1</td>
+                    <td>Logical reference</td>
+                </tr>
+                <tr>
+                    <td>StudyGroup</td>
+                    <td>domainId</td>
+                    <td>Roadmap</td>
+                    <td>slug</td>
+                    <td>M : 1</td>
+                    <td>Logical reference</td>
+                </tr>
+                <tr>
+                    <td>DailyStat</td>
+                    <td>newUsers / activeUsers</td>
+                    <td>FirebaseAuth</td>
+                    <td>metadata</td>
+                    <td>Aggregation</td>
+                    <td>Firebase Admin SDK query</td>
+                </tr>
+                <tr>
+                    <td>Feedback</td>
+                    <td>email</td>
+                    <td>User</td>
+                    <td>email</td>
+                    <td>Optional ref</td>
+                    <td>Logical reference</td>
+                </tr>
+                <tr>
+                    <td>SuggestedResource</td>
+                    <td>—</td>
+                    <td>User (Admin)</td>
+                    <td>—</td>
+                    <td>Admin reviews</td>
+                    <td>Role-based access</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="background:#2d3748;color:#e2e8f0;padding:20px 36px;font-size:.8rem">
+        <strong>AI Roadmap</strong> — ER Diagram &nbsp;|&nbsp; 8 MongoDB Collections · 1 Firebase Auth (External)
+        &nbsp;|&nbsp; 2026-02-26
+    </div>
+
+</body>
+
+</html>

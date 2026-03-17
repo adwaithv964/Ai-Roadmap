@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Sequence Diagram – AI Roadmap</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #fff;
+            padding: 40px;
+            text-align: center
+        }
+
+        .cover h1 {
+            font-size: 2rem;
+            margin-bottom: 8px
+        }
+
+        .cover p {
+            opacity: .7;
+            margin-bottom: 16px
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: .76rem;
+            margin: 3px
+        }
+
+        .canvas-wrap {
+            overflow: auto;
+            background: #fff;
+            padding: 20px
+        }
+
+        svg.seq {
+            display: block;
+            min-width: 1120px
+        }
+
+        .foot {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 14px 32px;
+            font-size: .8rem
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover">
+        <h1>Sequence Diagram</h1>
+        <p>AI Roadmap · All System Flows · Frontend → Backend → MongoDB / Firebase / Gemini AI</p>
+        <span class="pill">User Registration</span><span class="pill">Roadmap View</span><span class="pill">Progress
+            Track</span>
+        <span class="pill">AI Quiz</span><span class="pill">Community</span><span class="pill">AI Tools</span>
+        <span class="pill">Admin Panel</span>
+    </div>
+
+    <div class="canvas-wrap">
+        <!--
+  Actors (center X):
+  User=65  Admin=210  Frontend=360  Backend=510  MongoDB=660  Firebase=810  Gemini=960
+  Total canvas: 1100 x 2320
+-->
+        <svg class="seq" viewBox="0 0 1100 2320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="a" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                    <polygon points="0 0,7 2.5,0 5" fill="#2d3748" />
+                </marker>
+                <marker id="ad" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                    <polygon points="0 0,7 2.5,0 5" fill="#718096" />
+                </marker>
+            </defs>
+
+            <!-- ═══ TOP ACTOR BOXES ═══ -->
+            <rect x="10" y="18" width="110" height="28" fill="#fff" stroke="#2d3748" stroke-width="1.8" />
+            <text x="65" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2d3748">User</text>
+            <rect x="155" y="18" width="110" height="28" fill="#fff" stroke="#2d3748" stroke-width="1.8" />
+            <text x="210" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2d3748">Admin</text>
+            <rect x="305" y="18" width="110" height="28" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" />
+            <text x="360" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2b6cb0">Frontend</text>
+            <rect x="455" y="18" width="110" height="28" fill="#f0fff4" stroke="#276749" stroke-width="1.8" />
+            <text x="510" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#276749">Backend
+                API</text>
+            <rect x="605" y="18" width="110" height="28" fill="#fefcbf" stroke="#975a16" stroke-width="1.8" />
+            <text x="660" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#975a16">MongoDB</text>
+            <rect x="755" y="18" width="110" height="28" fill="#fff5f5" stroke="#c53030" stroke-width="1.8" />
+            <text x="810" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c53030">Firebase
+                Auth</text>
+            <rect x="905" y="18" width="110" height="28" fill="#faf5ff" stroke="#553c9a" stroke-width="1.8" />
+            <text x="960" y="36" text-anchor="middle" font-size="10.5" font-weight="700" fill="#553c9a">Gemini AI</text>
+
+            <!-- ═══ LIFELINES ═══ -->
+            <line x1="65" y1="46" x2="65" y2="2270" stroke="#4a5568" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="210" y1="46" x2="210" y2="2270" stroke="#4a5568" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="360" y1="46" x2="360" y2="2270" stroke="#2b6cb0" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="510" y1="46" x2="510" y2="2270" stroke="#276749" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="660" y1="46" x2="660" y2="2270" stroke="#975a16" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="810" y1="46" x2="810" y2="2270" stroke="#c53030" stroke-width="1" stroke-dasharray="6,4" />
+            <line x1="960" y1="46" x2="960" y2="2270" stroke="#553c9a" stroke-width="1" stroke-dasharray="6,4" />
+
+
+            <!-- ══════════════════════════════════════════════
+     1. USER REGISTRATION / LOGIN
+══════════════════════════════════════════════ -->
+            <rect x="10" y="58" width="1080" height="22" rx="2" fill="#1e3a5f" />
+            <text x="550" y="73" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">1. USER
+                REGISTRATION / LOGIN</text>
+
+            <!-- 1.1 User→Frontend -->
+            <line x1="70" y1="94" x2="352" y2="94" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="90" text-anchor="middle" font-size="8.5" fill="#1a202c">1.1 Enter email/password or Google
+                OAuth</text>
+
+            <!-- 1.2 Frontend→Firebase -->
+            <line x1="365" y1="114" x2="802" y2="114" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="110" text-anchor="middle" font-size="8.5" fill="#1a202c">1.2 signInWithEmailAndPassword() /
+                signInWithPopup()</text>
+
+            <!-- 1.3 Firebase→Frontend (JWT response, dashed) -->
+            <line x1="804" y1="134" x2="368" y2="134" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="130" text-anchor="middle" font-size="8.5" fill="#718096">1.3 Return ID Token (JWT)</text>
+
+            <!-- 1.4 Frontend→Backend (sync) -->
+            <line x1="365" y1="154" x2="502" y2="154" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="150" text-anchor="middle" font-size="8.5" fill="#1a202c">1.4 POST /api/auth/sync
+                {firebaseUid, email}</text>
+
+            <!-- 1.5 Backend→MongoDB -->
+            <line x1="515" y1="174" x2="652" y2="174" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="170" text-anchor="middle" font-size="8.5" fill="#1a202c">1.5 User.findOneAndUpdate
+                (upsert)</text>
+
+            <!-- 1.6 MongoDB→Backend (dashed) -->
+            <line x1="654" y1="194" x2="518" y2="194" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="190" text-anchor="middle" font-size="8.5" fill="#718096">1.6 User document</text>
+
+            <!-- 1.7 Backend→Frontend (dashed) -->
+            <line x1="504" y1="214" x2="368" y2="214" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="210" text-anchor="middle" font-size="8.5" fill="#718096">1.7 200 OK {user, role}</text>
+
+            <!-- 1.8 Frontend→User -->
+            <line x1="354" y1="234" x2="73" y2="234" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="210" y="230" text-anchor="middle" font-size="8.5" fill="#718096">1.8 Redirect to Learning Platform,
+                store token</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     2. SELECT DOMAIN & VIEW ROADMAP
+══════════════════════════════════════════════ -->
+            <rect x="10" y="252" width="1080" height="22" rx="2" fill="#1e3a5f" />
+            <text x="550" y="267" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">2. SELECT DOMAIN
+                &amp; VIEW ROADMAP</text>
+
+            <!-- 2.1 -->
+            <line x1="70" y1="288" x2="352" y2="288" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="284" text-anchor="middle" font-size="8.5" fill="#1a202c">2.1 Select domain from
+                DomainSelector</text>
+            <!-- 2.2 -->
+            <line x1="365" y1="308" x2="502" y2="308" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="304" text-anchor="middle" font-size="8.5" fill="#1a202c">2.2 GET /api/roadmaps</text>
+            <!-- 2.3 -->
+            <line x1="515" y1="328" x2="652" y2="328" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="324" text-anchor="middle" font-size="8.5" fill="#1a202c">2.3
+                Roadmap.find().sort({title:1})</text>
+            <!-- 2.4 dashed -->
+            <line x1="654" y1="348" x2="518" y2="348" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="344" text-anchor="middle" font-size="8.5" fill="#718096">2.4 Roadmap list []</text>
+            <!-- 2.5 dashed -->
+            <line x1="504" y1="368" x2="368" y2="368" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="364" text-anchor="middle" font-size="8.5" fill="#718096">2.5 200 OK {roadmaps[]}</text>
+            <!-- 2.6 -->
+            <line x1="354" y1="388" x2="73" y2="388" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="210" y="384" text-anchor="middle" font-size="8.5" fill="#718096">2.6 Render roadmap
+                modules/steps</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     3. TRACK PROGRESS + GAMIFICATION (XP)
+══════════════════════════════════════════════ -->
+            <rect x="10" y="406" width="1080" height="22" rx="2" fill="#1e3a5f" />
+            <text x="550" y="421" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">3. TRACK PROGRESS
+                + GAMIFICATION (XP / LEVEL)</text>
+
+            <!-- 3.1 -->
+            <line x1="70" y1="442" x2="352" y2="442" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="438" text-anchor="middle" font-size="8.5" fill="#1a202c">3.1 Click step checkbox (mark
+                complete)</text>
+            <!-- 3.2 -->
+            <line x1="365" y1="462" x2="502" y2="462" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="458" text-anchor="middle" font-size="8.5" fill="#1a202c">3.2 POST /api/progress/:domainId
+                {stepId, completed}</text>
+            <!-- 3.3 -->
+            <line x1="515" y1="482" x2="652" y2="482" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="478" text-anchor="middle" font-size="8.5" fill="#1a202c">3.3 Update
+                user.progress[domainId][stepId]</text>
+            <!-- 3.4 dashed -->
+            <line x1="654" y1="502" x2="518" y2="502" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="498" text-anchor="middle" font-size="8.5" fill="#718096">3.4 Updated user doc</text>
+            <!-- 3.5 dashed -->
+            <line x1="504" y1="522" x2="368" y2="522" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="518" text-anchor="middle" font-size="8.5" fill="#718096">3.5 200 OK {progress
+                updated}</text>
+            <!-- 3.6 Frontend→Backend award-xp -->
+            <line x1="365" y1="542" x2="502" y2="542" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="538" text-anchor="middle" font-size="8.5" fill="#1a202c">3.6 POST
+                /api/gamification/award-xp {amount, reason}</text>
+            <!-- 3.7 Backend→MongoDB -->
+            <line x1="515" y1="562" x2="652" y2="562" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="558" text-anchor="middle" font-size="8.5" fill="#1a202c">3.7 Update xp, level, streak,
+                lastActivityDate, xpHistory</text>
+            <!-- 3.8 MongoDB→Backend dashed -->
+            <line x1="654" y1="582" x2="518" y2="582" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="578" text-anchor="middle" font-size="8.5" fill="#718096">3.8 {xp, level, streak,
+                leveledUp}</text>
+            <!-- 3.9 Backend→Frontend dashed -->
+            <line x1="504" y1="602" x2="368" y2="602" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="598" text-anchor="middle" font-size="8.5" fill="#718096">3.9 XP awarded, leveledUp
+                flag</text>
+            <!-- 3.10 Frontend→User -->
+            <line x1="354" y1="622" x2="73" y2="622" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="210" y="618" text-anchor="middle" font-size="8.5" fill="#718096">3.10 Show XP Toast / Level-Up
+                Modal</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     4. AI QUIZ GENERATION + ADAPTIVE ROADMAP
+══════════════════════════════════════════════ -->
+            <rect x="10" y="640" width="1080" height="22" rx="2" fill="#553c9a" />
+            <text x="550" y="655" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">4. AI QUIZ
+                GENERATION + ADAPTIVE ROADMAP ENGINE</text>
+
+            <!-- 4.1 -->
+            <line x1="70" y1="676" x2="352" y2="676" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="672" text-anchor="middle" font-size="8.5" fill="#1a202c">4.1 Click "Take Quiz" on
+                module</text>
+            <!-- 4.2 -->
+            <line x1="365" y1="696" x2="502" y2="696" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="692" text-anchor="middle" font-size="8.5" fill="#1a202c">4.2 POST
+                /api/adaptive/generate-quiz {module}</text>
+            <!-- 4.3 Backend→Gemini -->
+            <line x1="515" y1="716" x2="952" y2="716" stroke="#553c9a" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="733" y="712" text-anchor="middle" font-size="8.5" fill="#553c9a">4.3 Generate 3 MCQ questions
+                prompt (module title, steps)</text>
+            <!-- 4.4 Gemini→Backend dashed -->
+            <line x1="954" y1="736" x2="518" y2="736" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="733" y="732" text-anchor="middle" font-size="8.5" fill="#718096">4.4 JSON quiz questions
+                array</text>
+            <!-- 4.5 Backend→Frontend dashed -->
+            <line x1="504" y1="756" x2="368" y2="756" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="752" text-anchor="middle" font-size="8.5" fill="#718096">4.5 200 OK {questions[]}</text>
+            <!-- 4.6 Frontend→User -->
+            <line x1="354" y1="776" x2="73" y2="776" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="210" y="772" text-anchor="middle" font-size="8.5" fill="#718096">4.6 Display quiz UI with 3 MCQ
+                questions</text>
+            <!-- 4.7 User→Frontend -->
+            <line x1="70" y1="796" x2="352" y2="796" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="792" text-anchor="middle" font-size="8.5" fill="#1a202c">4.7 Submit quiz answers, save quiz
+                score</text>
+            <!-- 4.8 Frontend→Backend trigger -->
+            <line x1="365" y1="816" x2="502" y2="816" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="812" text-anchor="middle" font-size="8.5" fill="#1a202c">4.8 POST /api/adaptive/trigger
+                {domainId}</text>
+            <!-- 4.9 Backend→Gemini analyze -->
+            <line x1="515" y1="836" x2="952" y2="836" stroke="#553c9a" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="733" y="832" text-anchor="middle" font-size="8.5" fill="#553c9a">4.9 Analyze quizScores + timeSpent
+                → generate adaptations</text>
+            <!-- 4.10 Gemini→Backend dashed -->
+            <line x1="954" y1="856" x2="518" y2="856" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="733" y="852" text-anchor="middle" font-size="8.5" fill="#718096">4.10 {addedModules[],
+                skippedSteps[]}</text>
+            <!-- 4.11 Backend→MongoDB -->
+            <line x1="515" y1="876" x2="652" y2="876" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="872" text-anchor="middle" font-size="8.5" fill="#1a202c">4.11 Save roadmapAdaptations,
+                quizScores to User doc</text>
+            <!-- 4.12 Backend→Frontend dashed -->
+            <line x1="504" y1="896" x2="368" y2="896" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="892" text-anchor="middle" font-size="8.5" fill="#718096">4.12 Adapted roadmap
+                (remedial/skip modules)</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     5. COMMUNITY HUB
+══════════════════════════════════════════════ -->
+            <rect x="10" y="914" width="1080" height="22" rx="2" fill="#276749" />
+            <text x="550" y="929" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">5. COMMUNITY HUB
+                (FEED · POSTS · STUDY GROUPS · LEADERBOARD)</text>
+
+            <!-- 5.1 -->
+            <line x1="70" y1="950" x2="352" y2="950" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="946" text-anchor="middle" font-size="8.5" fill="#1a202c">5.1 Navigate to Community
+                Hub</text>
+            <!-- 5.2 -->
+            <line x1="365" y1="970" x2="502" y2="970" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="966" text-anchor="middle" font-size="8.5" fill="#1a202c">5.2 GET
+                /api/community/feed?page=1</text>
+            <!-- 5.3 -->
+            <line x1="515" y1="990" x2="652" y2="990" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="986" text-anchor="middle" font-size="8.5" fill="#1a202c">5.3
+                CommunityPost.find().sort({createdAt:-1})</text>
+            <!-- 5.4 dashed -->
+            <line x1="654" y1="1010" x2="518" y2="1010" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="1006" text-anchor="middle" font-size="8.5" fill="#718096">5.4 {posts[], total, page}</text>
+            <!-- 5.5 dashed -->
+            <line x1="504" y1="1030" x2="368" y2="1030" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1026" text-anchor="middle" font-size="8.5" fill="#718096">5.5 200 OK {posts[]}</text>
+            <!-- 5.6 -->
+            <line x1="70" y1="1050" x2="352" y2="1050" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1046" text-anchor="middle" font-size="8.5" fill="#1a202c">5.6 Create post / Share roadmap
+                progress</text>
+            <!-- 5.7 -->
+            <line x1="365" y1="1070" x2="502" y2="1070" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1066" text-anchor="middle" font-size="8.5" fill="#1a202c">5.7 POST /api/community/posts
+                {type, content, domainId}</text>
+            <!-- 5.8 -->
+            <line x1="515" y1="1090" x2="652" y2="1090" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1086" text-anchor="middle" font-size="8.5" fill="#1a202c">5.8 CommunityPost.create()</text>
+            <!-- 5.9 dashed -->
+            <line x1="654" y1="1110" x2="518" y2="1110" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="1106" text-anchor="middle" font-size="8.5" fill="#718096">5.9 Saved post document</text>
+            <!-- 5.10 dashed -->
+            <line x1="504" y1="1130" x2="368" y2="1130" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1126" text-anchor="middle" font-size="8.5" fill="#718096">5.10 201 Created {post}</text>
+            <!-- 5.11 User join study group -->
+            <line x1="70" y1="1150" x2="352" y2="1150" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1146" text-anchor="middle" font-size="8.5" fill="#1a202c">5.11 Join Study Group</text>
+            <!-- 5.12 -->
+            <line x1="365" y1="1170" x2="502" y2="1170" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1166" text-anchor="middle" font-size="8.5" fill="#1a202c">5.12 POST
+                /api/community/groups/:id/join</text>
+            <!-- 5.13 -->
+            <line x1="515" y1="1190" x2="652" y2="1190" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1186" text-anchor="middle" font-size="8.5" fill="#1a202c">5.13 StudyGroup
+                members.push({uid,email})</text>
+            <!-- 5.14 dashed -->
+            <line x1="504" y1="1210" x2="368" y2="1210" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1206" text-anchor="middle" font-size="8.5" fill="#718096">5.14 200 OK {group}</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     6. RESOURCE VOTING
+══════════════════════════════════════════════ -->
+            <rect x="10" y="1228" width="1080" height="22" rx="2" fill="#1e3a5f" />
+            <text x="550" y="1243" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">6. RESOURCE
+                VOTING &amp; SUGGESTIONS</text>
+
+            <!-- 6.1 -->
+            <line x1="70" y1="1264" x2="352" y2="1264" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1260" text-anchor="middle" font-size="8.5" fill="#1a202c">6.1 View resources for topic,
+                vote helpful/not helpful</text>
+            <!-- 6.2 -->
+            <line x1="365" y1="1284" x2="502" y2="1284" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1280" text-anchor="middle" font-size="8.5" fill="#1a202c">6.2 GET
+                /api/resources/votes?topic=reactHooks</text>
+            <!-- 6.3 -->
+            <line x1="515" y1="1304" x2="652" y2="1304" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1300" text-anchor="middle" font-size="8.5" fill="#1a202c">6.3
+                ResourceVote.find({topicKey})</text>
+            <!-- 6.4 dashed -->
+            <line x1="654" y1="1324" x2="518" y2="1324" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="1320" text-anchor="middle" font-size="8.5" fill="#718096">6.4 [{resourceUrl, helpful,
+                notHelpful, userVote}]</text>
+            <!-- 6.5 -->
+            <line x1="70" y1="1344" x2="352" y2="1344" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1340" text-anchor="middle" font-size="8.5" fill="#1a202c">6.5 Cast vote (up/down
+                toggle)</text>
+            <!-- 6.6 -->
+            <line x1="365" y1="1364" x2="502" y2="1364" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1360" text-anchor="middle" font-size="8.5" fill="#1a202c">6.6 POST /api/resources/vote
+                {topic, url, vote}</text>
+            <!-- 6.7 -->
+            <line x1="515" y1="1384" x2="652" y2="1384" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1380" text-anchor="middle" font-size="8.5" fill="#1a202c">6.7 Upsert vote doc, update
+                voterUids map</text>
+            <!-- 6.8 dashed -->
+            <line x1="504" y1="1404" x2="368" y2="1404" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1400" text-anchor="middle" font-size="8.5" fill="#718096">6.8 {helpful, notHelpful,
+                successRate, userVote}</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     7. AI TOOLS (SKILL GAP + RESUME GENERATOR)
+══════════════════════════════════════════════ -->
+            <rect x="10" y="1422" width="1080" height="22" rx="2" fill="#553c9a" />
+            <text x="550" y="1437" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">7. AI TOOLS —
+                SKILL GAP ANALYZER + RESUME GENERATOR</text>
+
+            <!-- 7.1 -->
+            <line x1="70" y1="1458" x2="352" y2="1458" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1454" text-anchor="middle" font-size="8.5" fill="#1a202c">7.1 Open Skill Gap
+                Analyzer</text>
+            <!-- 7.2 Frontend→Gemini (direct from frontend) -->
+            <line x1="365" y1="1478" x2="952" y2="1478" stroke="#553c9a" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="660" y="1474" text-anchor="middle" font-size="8.5" fill="#553c9a">7.2 POST Gemini API — Analyze
+                progress vs career goal</text>
+            <!-- 7.3 Gemini→Frontend dashed -->
+            <line x1="954" y1="1498" x2="368" y2="1498" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="660" y="1494" text-anchor="middle" font-size="8.5" fill="#718096">7.3 Skill gap analysis (missing
+                skills, learning paths)</text>
+            <!-- 7.4 -->
+            <line x1="70" y1="1518" x2="352" y2="1518" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1514" text-anchor="middle" font-size="8.5" fill="#1a202c">7.4 Open Resume Generator, enter
+                details</text>
+            <!-- 7.5 Frontend→Gemini -->
+            <line x1="365" y1="1538" x2="952" y2="1538" stroke="#553c9a" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="660" y="1534" text-anchor="middle" font-size="8.5" fill="#553c9a">7.5 POST Gemini API — Generate
+                resume from skills/progress</text>
+            <!-- 7.6 Gemini→Frontend dashed -->
+            <line x1="954" y1="1558" x2="368" y2="1558" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="660" y="1554" text-anchor="middle" font-size="8.5" fill="#718096">7.6 Generated resume content
+                (PDF/text)</text>
+            <!-- 7.7 User submit feedback -->
+            <line x1="70" y1="1578" x2="352" y2="1578" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="210" y="1574" text-anchor="middle" font-size="8.5" fill="#1a202c">7.7 Submit Feedback (rating,
+                category, message)</text>
+            <!-- 7.8 -->
+            <line x1="365" y1="1598" x2="502" y2="1598" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1594" text-anchor="middle" font-size="8.5" fill="#1a202c">7.8 POST /api/feedback {rating,
+                category, feedback}</text>
+            <!-- 7.9 -->
+            <line x1="515" y1="1618" x2="652" y2="1618" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1614" text-anchor="middle" font-size="8.5" fill="#1a202c">7.9 Feedback.create()</text>
+            <!-- 7.10 dashed -->
+            <line x1="504" y1="1638" x2="368" y2="1638" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1634" text-anchor="middle" font-size="8.5" fill="#718096">7.10 201 Created {feedback
+                saved}</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     8. ADMIN — LOGIN + DASHBOARD STATS
+══════════════════════════════════════════════ -->
+            <rect x="10" y="1656" width="1080" height="22" rx="2" fill="#7b341e" />
+            <text x="550" y="1671" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">8. ADMIN — LOGIN
+                &amp; DASHBOARD STATS</text>
+
+            <!-- 8.1 -->
+            <line x1="215" y1="1692" x2="352" y2="1692" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="283" y="1688" text-anchor="middle" font-size="8.5" fill="#1a202c">8.1 Navigate /admin, enter
+                credentials</text>
+            <!-- 8.2 Frontend→Firebase -->
+            <line x1="365" y1="1712" x2="802" y2="1712" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1708" text-anchor="middle" font-size="8.5" fill="#1a202c">8.2
+                signInWithEmailAndPassword()</text>
+            <!-- 8.3 Firebase→Frontend dashed -->
+            <line x1="804" y1="1732" x2="368" y2="1732" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="1728" text-anchor="middle" font-size="8.5" fill="#718096">8.3 ID Token (JWT)</text>
+            <!-- 8.4 Frontend→Backend admin/login -->
+            <line x1="365" y1="1752" x2="502" y2="1752" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="434" y="1748" text-anchor="middle" font-size="8.5" fill="#1a202c">8.4 POST /api/admin/login [Bearer
+                token]</text>
+            <!-- 8.5 Backend→Firebase verify -->
+            <line x1="515" y1="1772" x2="802" y2="1772" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="660" y="1768" text-anchor="middle" font-size="8.5" fill="#1a202c">8.5
+                admin.auth().verifyIdToken(token)</text>
+            <!-- 8.6 Firebase→Backend dashed -->
+            <line x1="804" y1="1792" x2="518" y2="1792" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="660" y="1788" text-anchor="middle" font-size="8.5" fill="#718096">8.6 Decoded token {uid}</text>
+            <!-- 8.7 Backend→MongoDB -->
+            <line x1="515" y1="1812" x2="652" y2="1812" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1808" text-anchor="middle" font-size="8.5" fill="#1a202c">8.7 User.findOne({firebaseUid}) —
+                check role</text>
+            <!-- 8.8 MongoDB→Backend dashed -->
+            <line x1="654" y1="1832" x2="518" y2="1832" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="584" y="1828" text-anchor="middle" font-size="8.5" fill="#718096">8.8 User {role:
+                super_admin}</text>
+            <!-- 8.9 Backend→Frontend dashed -->
+            <line x1="504" y1="1852" x2="368" y2="1852" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1848" text-anchor="middle" font-size="8.5" fill="#718096">8.9 200 OK {role, email}</text>
+            <!-- 8.10 Frontend→Admin -->
+            <line x1="354" y1="1872" x2="218" y2="1872" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="283" y="1868" text-anchor="middle" font-size="8.5" fill="#718096">8.10 Render Admin
+                Dashboard</text>
+            <!-- 8.11 GET stats -->
+            <line x1="215" y1="1892" x2="502" y2="1892" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="360" y="1888" text-anchor="middle" font-size="8.5" fill="#1a202c">8.11 GET /api/admin/stats [Bearer
+                token]</text>
+            <!-- 8.12 Backend→Firebase listUsers -->
+            <line x1="515" y1="1912" x2="802" y2="1912" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="660" y="1908" text-anchor="middle" font-size="8.5" fill="#1a202c">8.12
+                admin.auth().listUsers(1000)</text>
+            <!-- 8.13 Firebase→Backend dashed -->
+            <line x1="804" y1="1932" x2="518" y2="1932" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="660" y="1928" text-anchor="middle" font-size="8.5" fill="#718096">8.13 Users list with
+                creation/signIn metadata</text>
+            <!-- 8.14 Backend→MongoDB bulkWrite -->
+            <line x1="515" y1="1952" x2="652" y2="1952" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="1948" text-anchor="middle" font-size="8.5" fill="#1a202c">8.14 DailyStat.bulkWrite (upsert
+                daily counts)</text>
+            <!-- 8.15 Backend→Frontend dashed -->
+            <line x1="504" y1="1972" x2="368" y2="1972" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="434" y="1968" text-anchor="middle" font-size="8.5" fill="#718096">8.15 {totalUsers, activeUsers,
+                engagement[]}</text>
+
+
+            <!-- ══════════════════════════════════════════════
+     9. ADMIN — MANAGE USERS + SEND NOTIFICATIONS
+══════════════════════════════════════════════ -->
+            <rect x="10" y="1990" width="1080" height="22" rx="2" fill="#7b341e" />
+            <text x="550" y="2005" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700">9. ADMIN — MANAGE
+                USERS · ROADMAPS · NOTIFICATIONS · RESOURCES</text>
+
+            <!-- 9.1 GET users -->
+            <line x1="215" y1="2026" x2="502" y2="2026" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="360" y="2022" text-anchor="middle" font-size="8.5" fill="#1a202c">9.1 GET /api/admin/users — view
+                user list</text>
+            <!-- 9.2 -->
+            <line x1="515" y1="2046" x2="652" y2="2046" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="2042" text-anchor="middle" font-size="8.5" fill="#1a202c">9.2 User.find({},
+                '-progress').limit(50)</text>
+            <!-- 9.3 dashed -->
+            <line x1="504" y1="2066" x2="218" y2="2066" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="360" y="2062" text-anchor="middle" font-size="8.5" fill="#718096">9.3 200 OK {users[]}</text>
+            <!-- 9.4 Ban/role -->
+            <line x1="215" y1="2086" x2="502" y2="2086" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="360" y="2082" text-anchor="middle" font-size="8.5" fill="#1a202c">9.4 PUT /api/admin/users/:id
+                {role/isBanned}</text>
+            <!-- 9.5 -->
+            <line x1="515" y1="2106" x2="652" y2="2106" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="2102" text-anchor="middle" font-size="8.5" fill="#1a202c">9.5
+                User.findByIdAndUpdate()</text>
+            <!-- 9.6 dashed -->
+            <line x1="504" y1="2126" x2="218" y2="2126" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="360" y="2122" text-anchor="middle" font-size="8.5" fill="#718096">9.6 Updated user (role changed /
+                banned)</text>
+            <!-- 9.7 Send notification -->
+            <line x1="215" y1="2146" x2="502" y2="2146" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="360" y="2142" text-anchor="middle" font-size="8.5" fill="#1a202c">9.7 POST /api/admin/notifications
+                {title, message}</text>
+            <!-- 9.8 -->
+            <line x1="515" y1="2166" x2="652" y2="2166" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="2162" text-anchor="middle" font-size="8.5" fill="#1a202c">9.8
+                User.updateMany({$push:{notifications:{…}}})</text>
+            <!-- 9.9 dashed -->
+            <line x1="504" y1="2186" x2="218" y2="2186" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="360" y="2182" text-anchor="middle" font-size="8.5" fill="#718096">9.9 Notification sent to all
+                users</text>
+            <!-- 9.10 Approve resource -->
+            <line x1="215" y1="2206" x2="502" y2="2206" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="360" y="2202" text-anchor="middle" font-size="8.5" fill="#1a202c">9.10 PUT
+                /api/admin/resources/:id/approve</text>
+            <!-- 9.11 -->
+            <line x1="515" y1="2226" x2="652" y2="2226" stroke="#2d3748" stroke-width="1.3" marker-end="url(#a)" />
+            <text x="584" y="2222" text-anchor="middle" font-size="8.5" fill="#1a202c">9.11
+                SuggestedResource.findByIdAndUpdate({status:'approved'})</text>
+            <!-- 9.12 dashed -->
+            <line x1="504" y1="2246" x2="218" y2="2246" stroke="#718096" stroke-width="1.3" stroke-dasharray="5,3"
+                marker-end="url(#ad)" />
+            <text x="360" y="2242" text-anchor="middle" font-size="8.5" fill="#718096">9.12 200 OK {resource
+                approved}</text>
+
+
+            <!-- ═══ BOTTOM ACTOR BOXES ═══ -->
+            <rect x="10" y="2264" width="110" height="28" fill="#fff" stroke="#2d3748" stroke-width="1.8" />
+            <text x="65" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2d3748">User</text>
+            <rect x="155" y="2264" width="110" height="28" fill="#fff" stroke="#2d3748" stroke-width="1.8" />
+            <text x="210" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2d3748">Admin</text>
+            <rect x="305" y="2264" width="110" height="28" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.8" />
+            <text x="360" y="2282" text-anchor="middle" font-size="10.5" font-weight="700"
+                fill="#2b6cb0">Frontend</text>
+            <rect x="455" y="2264" width="110" height="28" fill="#f0fff4" stroke="#276749" stroke-width="1.8" />
+            <text x="510" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#276749">Backend
+                API</text>
+            <rect x="605" y="2264" width="110" height="28" fill="#fefcbf" stroke="#975a16" stroke-width="1.8" />
+            <text x="660" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#975a16">MongoDB</text>
+            <rect x="755" y="2264" width="110" height="28" fill="#fff5f5" stroke="#c53030" stroke-width="1.8" />
+            <text x="810" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c53030">Firebase
+                Auth</text>
+            <rect x="905" y="2264" width="110" height="28" fill="#faf5ff" stroke="#553c9a" stroke-width="1.8" />
+            <text x="960" y="2282" text-anchor="middle" font-size="10.5" font-weight="700" fill="#553c9a">Gemini
+                AI</text>
+
+            <!-- caption -->
+            <text x="550" y="2308" text-anchor="middle" font-size="9.5" fill="#718096">AI Roadmap System — Sequence
+                Diagram · 9 Scenarios · 2026-02-26</text>
+
+        </svg>
+    </div>
+
+    <div class="foot">
+        <strong>AI Roadmap</strong> — Sequence Diagram &nbsp;|&nbsp;
+        9 Scenarios · 7 Actors (User, Admin, Frontend, Backend API, MongoDB, Firebase Auth, Gemini AI) &nbsp;|&nbsp;
+        Solid arrow = request &nbsp;·&nbsp; Dashed arrow = response
+    </div>
+</body>
+
+</html>
