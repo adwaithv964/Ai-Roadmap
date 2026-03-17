@@ -21,7 +21,12 @@ import { useProgressIntelligence } from '../hooks/useProgressIntelligence';
 import { motivationalAlerts, domains } from '../data/constants';
 
 const LearningPlatform = ({ onBackToHome, onLogout }) => {
-    const [appView, setAppView] = useState('domainSelector');
+    const [appView, setAppView] = useState(() => {
+        // Restore inner view from hash on first load
+        const hash = window.location.hash.slice(1);
+        if (['domainSelector', 'customizer', 'roadmap', 'dashboard'].includes(hash)) return hash;
+        return 'domainSelector';
+    });
     const [darkMode, setDarkMode] = useState(true);
     const [selectedDomain, setSelectedDomain] = useState(null);
     const [generatedRoadmap, setGeneratedRoadmap] = useState(null);
@@ -39,7 +44,48 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
     const [showResumeGenerator, setShowResumeGenerator] = useState(false);
     const [showCommunity, setShowCommunity] = useState(false);
 
-    // ── Gamification ──────────────────────────────────────────────────────────
+    // ── Hash-based inner view navigation (enables browser back/forward) ────────
+    const navigateAppView = useCallback((newView, options = {}) => {
+        const { replace = false, domainId = null } = options;
+        const hash = `#${newView}`;
+        const state = { appView: newView, domainId: domainId ?? selectedDomain };
+        if (replace) {
+            window.history.replaceState(state, '', hash);
+        } else {
+            window.history.pushState(state, '', hash);
+        }
+        setAppView(newView);
+    }, [selectedDomain]);
+
+    // Handle browser back / forward within the platform
+    useEffect(() => {
+        const handlePopState = (e) => {
+            const restoredView = e.state?.appView;
+            if (restoredView && ['domainSelector', 'customizer', 'roadmap', 'dashboard'].includes(restoredView)) {
+                setAppView(restoredView);
+                // If popping back to domainSelector from within, clear roadmap state
+                if (restoredView === 'domainSelector') {
+                    setSelectedDomain(null);
+                    setGeneratedRoadmap(null);
+                }
+            } else {
+                // No inner state — user popped out to the top-level app routing
+                // Let App.jsx handle it via its own popstate listener
+            }
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
+
+    // Set initial hash state so the very first back press works
+    useEffect(() => {
+        const hash = window.location.hash.slice(1);
+        if (!hash || !['domainSelector', 'customizer', 'roadmap', 'dashboard'].includes(hash)) {
+            window.history.replaceState({ appView: 'domainSelector' }, '', '#domainSelector');
+        }
+    }, []);
+
+
     const { stats: gamStats, awardXP, levelData } = useGamification();
     const [xpToasts, setXpToasts] = useState([]);
     const [levelUpEvent, setLevelUpEvent] = useState(null); // { newLevel, newLevelTitle }
@@ -114,7 +160,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
     // --- Handler Functions ---
     const handleSelectDomain = (domainId) => {
         setSelectedDomain(domainId);
-        setAppView('customizer');
+        navigateAppView('customizer', { domainId });
     };
 
     const handleGenerateRoadmap = async (roadmapData) => {
@@ -211,7 +257,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         }
 
         setProgress(initialProgress);
-        setAppView('roadmap');
+        navigateAppView('roadmap', { replace: false });
     };
 
     const showToast = (title, message, type = 'general') => {
@@ -421,13 +467,13 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
 
             <main>
                 {appView === 'domainSelector' && <DomainSelector onSelectDomain={handleSelectDomain} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />}
-                {appView === 'customizer' && <RoadmapCustomizer domainId={selectedDomain} onGenerateRoadmap={handleGenerateRoadmap} />}
+                {appView === 'customizer' && <RoadmapCustomizer domainId={selectedDomain} onGenerateRoadmap={handleGenerateRoadmap} onBack={() => navigateAppView('domainSelector')} />}
                 {appView === 'roadmap' && generatedRoadmap && (
                     <RoadmapView
                         roadmapData={generatedRoadmap}
                         progress={progress}
                         onToggleStep={handleToggleStep}
-                        onGoToDashboard={() => setAppView('dashboard')}
+                        onGoToDashboard={() => navigateAppView('dashboard')}
                         onShowResources={handleShowResources}
                         onAskTutor={handleAskTutor}
                         onGenerateQuiz={handleGenerateQuiz}
@@ -440,7 +486,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
                     <DashboardView
                         roadmapData={generatedRoadmap}
                         progress={progress}
-                        onBackToRoadmap={() => setAppView('roadmap')}
+                        onBackToRoadmap={() => navigateAppView('roadmap')}
                     />
                 )}
             </main>
