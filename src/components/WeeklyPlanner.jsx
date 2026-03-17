@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { auth } from '../config/firebase';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 // ─────────────────────────────────────────────────────────
 // Constants & helpers
 // ─────────────────────────────────────────────────────────
@@ -157,7 +159,7 @@ async function fetchAIMiniTasks(plan, roadmapTitle, token) {
     if (!enhanceDays.length) return null;
 
     try {
-        const res = await fetch('/api/gemini/mini-tasks', {
+        const res = await fetch(`${API_BASE}/api/gemini/mini-tasks`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ roadmapTitle, days: enhanceDays }),

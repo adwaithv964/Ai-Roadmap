@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { auth } from '../config/firebase';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const AIChatbot = ({ roadmapTitle, initialMessage, onClose }) => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
@@ -43,7 +45,7 @@ const AIChatbot = ({ roadmapTitle, initialMessage, onClose }) => {
                 }));
 
             // Call OUR backend — the Gemini key stays safely on the server
-            const res = await fetch('/api/gemini/chat', {
+            const res = await fetch(`${API_BASE}/api/gemini/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,8 +127,8 @@ const AIChatbot = ({ roadmapTitle, initialMessage, onClose }) => {
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-xs md:max-w-md p-3 rounded-lg text-sm ${msg.role === 'user'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-200 dark:bg-gray-700'
+                                    ? 'bg-blue-500 text-white'
+                                    : 'bg-gray-200 dark:bg-gray-700'
                                     }`}>
                                     {renderMessageContent(msg.text)}
                                 </div>

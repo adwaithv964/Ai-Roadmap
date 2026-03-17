@@ -2,6 +2,8 @@ import React, { useState, useRef, useCallback } from 'react';
 import { domains } from '../data/constants';
 import { auth } from '../config/firebase';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
@@ -107,7 +109,7 @@ const SkillGapAnalyzer = ({ onClose, onSelectDomain }) => {
 
         try {
             const token = await auth.currentUser?.getIdToken();
-            const res = await fetch('/api/gemini/skill-gap', {
+            const res = await fetch(`${API_BASE}/api/gemini/skill-gap`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ domainTitle: selectedDomain.title, currentSkills }),

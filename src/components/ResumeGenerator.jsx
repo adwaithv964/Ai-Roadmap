@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { auth } from '../config/firebase';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 // ─────────────────────────────────────────────────────────
 // Helpers — extract learnable skills from progress
 // ─────────────────────────────────────────────────────────
@@ -199,7 +201,7 @@ const ResumeGenerator = ({ roadmapData, progress, onClose }) => {
 
         try {
             const token = await auth.currentUser?.getIdToken();
-            const res = await fetch('/api/gemini/resume-generate', {
+            const res = await fetch(`${API_BASE}/api/gemini/resume-generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ roadmapTitle: roadmapData.title, learnedSkills, completedModules, progressPct, userInfo }),
