@@ -7,20 +7,20 @@ const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onS
     const progressPercentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
 
     return (
-        <div className="p-8 max-w-7xl mx-auto">
+        <div className="p-4 sm:p-8 max-w-7xl mx-auto">
             <div className="flex flex-wrap gap-4 justify-between items-center mb-6">
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <button onClick={onGoToDashboard} className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        Dashboard
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <span className="hidden sm:inline">Dashboard</span>
                     </button>
                     {onOpenPlanner && (
                         <button
                             onClick={onOpenPlanner}
                             className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 flex items-center shadow-md hover:shadow-lg hover:scale-105 active:scale-100 font-semibold"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                            Weekly Plan
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            <span className="hidden sm:inline">Weekly Plan</span>
                         </button>
                     )}
                     {onOpenResume && (
@@ -28,13 +28,13 @@ const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onS
                             onClick={onOpenResume}
                             className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-teal-600 transition-all duration-300 flex items-center shadow-md hover:shadow-lg hover:scale-105 active:scale-100 font-semibold"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                            Resume
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            <span className="hidden sm:inline">Resume</span>
                         </button>
                     )}
                     <button onClick={() => alert("PDF export is a feature coming soon!")} className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        Export PDF
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                        <span className="hidden sm:inline">Export PDF</span>
                     </button>
                 </div>
             </div>
@@ -42,7 +42,7 @@ const RoadmapView = ({ roadmapData, progress, onToggleStep, onGoToDashboard, onS
             <div className="mb-8">
                 <h3 className="text-lg font-semibold mb-2 dark:text-gray-200">Your Progress</h3>
                 <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
-                    <div className="bg-green-500 h-4 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
+                    <div className="bg-green-500 h-4 rounded-full" style={{ width: `${progressPercentage}% ` }}></div>
                 </div>
                 <p className="text-right mt-1 text-sm text-gray-500">{Math.round(progressPercentage)}% Complete</p>
             </div>

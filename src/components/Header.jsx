@@ -5,16 +5,16 @@ const Header = ({ darkMode, toggleDarkMode, onBack, notifications, onClearNotifi
     const [isNotifOpen, setIsNotifOpen] = useState(false);
     return (
         <>
-            <header className={`p-4 flex justify-between items-center sticky top-0 z-40
-                                bg-white/80 dark:bg-gray-900/80
-                                backdrop-blur-lg border-b border-gray-200 dark:border-white/10 shadow-lg text-gray-900 dark:text-white`}>
+            <header className={`p - 2 sm: p - 4 flex justify - between items - center sticky top - 0 z - 40
+bg - white / 80 dark: bg - gray - 900 / 80
+backdrop - blur - lg border - b border - gray - 200 dark: border - white / 10 shadow - lg text - gray - 900 dark: text - white`}>
                 <div className="flex items-center">
                     {onBack && (
                         <button onClick={onBack} className="mr-4 p-2 rounded-full hover:bg-black/20 transition-colors duration-300" title="Back to Home">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" /></svg>
                         </button>
                     )}
-                    <h1 className="text-2xl font-extrabold tracking-tight">
+                    <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">
                         🎓 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500">
                             AI Learning Roadmap
                         </span>
@@ -73,13 +73,26 @@ const Header = ({ darkMode, toggleDarkMode, onBack, notifications, onClearNotifi
                         {darkMode ? '☀️' : '🌙'}
                     </button>
                     {onLogout && (
-                        <button
-                            onClick={onLogout}
-                            className="ml-2 px-3 py-1.5 text-sm font-bold text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors shadow-md"
-                            title="Sign Out"
-                        >
-                            Sign Out
-                        </button>
+                        <>
+                            {/* Desktop/Tablet Sign Out */}
+                            <button
+                                onClick={onLogout}
+                                className="hidden sm:block ml-2 px-3 py-1.5 text-sm font-bold text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                                title="Sign Out"
+                            >
+                                Sign Out
+                            </button>
+                            {/* Mobile Sign Out (icon only) */}
+                            <button
+                                onClick={onLogout}
+                                className="sm:hidden ml-2 p-2 rounded-full hover:bg-black/20 transition-colors duration-300"
+                                title="Sign Out"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                            </button>
+                        </>
                     )}
                 </div>
             </header>

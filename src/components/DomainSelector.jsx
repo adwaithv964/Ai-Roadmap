@@ -43,14 +43,14 @@ const DomainSelector = ({ onSelectDomain, searchTerm, setSearchTerm }) => {
                 <div className="absolute inset-0 bg-white/90 dark:bg-black/80 transition-colors duration-300"></div>
             </div>
 
-            <div className="relative z-10 p-8">
+            <div className="relative z-10 p-4 sm:p-8">
                 <div className="text-center my-8 animate-fade-in-up">
-                    <h1 className="text-5xl font-extrabold tracking-tight">
+                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500">
                             Your Journey Starts Here
                         </span>
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">Pick a specialization to begin your personalized learning adventure.</p>
+                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mt-2">Pick a specialization to begin your personalized learning adventure.</p>
                 </div>
 
                 <div className="max-w-4xl mx-auto">

@@ -28,7 +28,7 @@ const ModuleAccordion = ({ module, progress, onToggleStep, onShowResources, onAs
                 <div className="flex-1 cursor-pointer" onClick={handleToggle}>
                     <h4 className="font-bold text-lg">{module.title}</h4>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
                     {!module.steps[0]?.isSkipped && onGenerateQuiz && (
                         <button
                             onClick={() => onGenerateQuiz(module)}
@@ -45,7 +45,7 @@ const ModuleAccordion = ({ module, progress, onToggleStep, onShowResources, onAs
                     >
                         🤖
                     </button>
-                    <span className="text-sm text-gray-500">{completedSteps} / {totalSteps} steps</span>
+                    <span className="hidden sm:inline text-sm text-gray-500 whitespace-nowrap">{completedSteps} / {totalSteps} steps</span>
                     <button onClick={handleToggle} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600">
                         <svg className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

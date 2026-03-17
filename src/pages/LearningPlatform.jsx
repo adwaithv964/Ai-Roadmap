@@ -130,7 +130,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         try {
             const token = await auth.currentUser?.getIdToken();
             if (token) {
-                const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -316,7 +316,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
         try {
             const token = await auth.currentUser?.getIdToken();
             if (token && selectedDomain) {
-                await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ moduleId, timeSpent: timeSpentSeconds })
@@ -330,14 +330,14 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
             const token = await auth.currentUser?.getIdToken();
             if (token && selectedDomain) {
                 // 1. Save Score
-                await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
+                await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/progress/${selectedDomain}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ moduleId, quizScore: score })
                 });
 
                 // 2. Trigger AI Engine
-                const aiRes = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/adaptive/trigger`, {
+                const aiRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/adaptive/trigger`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ domainId: selectedDomain })
@@ -445,7 +445,7 @@ const LearningPlatform = ({ onBackToHome, onLogout }) => {
                 )}
             </main>
 
-            <div className="fixed top-24 right-5 z-50 space-y-3 w-80">
+            <div className="fixed top-24 right-3 z-50 space-y-3 w-72 max-w-[calc(100vw-1.5rem)]">
                 {activeToasts.map(toast => (
                     <div key={toast.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 flex items-start gap-3 animate-slide-in-right border dark:border-gray-700">
                         <span className="text-2xl">{toast.icon}</span>
